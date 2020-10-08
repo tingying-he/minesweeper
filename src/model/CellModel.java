@@ -17,6 +17,10 @@ public class CellModel {
     private boolean mine;
     private boolean star;
     private boolean clock;
+
+    public boolean open;
+    public boolean flag;
+
     public int cellSide = 32;
 
     private int N,M,mineNumber;
@@ -27,9 +31,26 @@ public class CellModel {
         mine = false;
         star = false;
         clock = false;
+
+        open = false;
+        flag = false;
+
         putMine();
         putStar();
         putClock();
+    }
+
+
+    public void setMine(boolean mine) {
+        this.mine = mine;
+    }
+
+    public void setStar(boolean star) {
+        this.star = star;
+    }
+
+    public void setClock(boolean clock) {
+        this.clock = clock;
     }
 
     public boolean isMine(){
@@ -56,6 +77,14 @@ public class CellModel {
     private void putClock(){
         if(Math.random()<0.05 && mine == false && star == false)
             clock = true;
+    }
+
+    public void setOpen(){
+        open = true;
+    }
+
+    public void setFlag(){
+        flag = !flag;
     }
 
 }
