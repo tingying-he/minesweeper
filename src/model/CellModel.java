@@ -25,21 +25,37 @@ public class CellModel {
         this.x = x;
         this.y = y;
         mine = false;
-        putMines();
+        star = false;
+        clock = false;
+        putMine();
+        putStar();
+        putClock();
     }
 
     public boolean isMine(){
         return mine;
     }
+    public boolean isStar() {
+        return star;
+    }
+    public boolean isClock() {
+        return clock;
+    }
 
-    private void putMines(){
+
+    private void putMine(){
         if(Math.random()<0.2)
             mine = true;
     }
 
+    private void putStar(){
+        if(Math.random()<0.05 && mine == false)
+            star = true;
+    }
 
-
-
-
+    private void putClock(){
+        if(Math.random()<0.05 && mine == false && star == false)
+            clock = true;
+    }
 
 }
