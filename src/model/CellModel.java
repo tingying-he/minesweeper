@@ -98,4 +98,12 @@ public class CellModel {
         flag = !flag;
     }
 
+    public void moveClock(){
+        clock = false;
+    }
+
+    public void moveStar(){
+        star = false;
+    }
+
 }

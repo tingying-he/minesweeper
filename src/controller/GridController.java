@@ -105,6 +105,7 @@ public class GridController {
             if(cellControllers[i][j].cellModel.isClock()){
                 remainTime = remainTime +30;
                 setTimer();
+                cellControllers[i][j].cellModel.moveClock();
             }
         } else {
             cellControllers[i][j].cellModel.setFlag();
