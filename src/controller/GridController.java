@@ -1,6 +1,9 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -8,12 +11,19 @@ import model.GridModel;
 import view.CellView;
 import view.GridView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Tingying He on 2020/10/7.
  */
 public class GridController {
     private int N, M;
     GridPane gridPane = new GridPane();
+    public Timer timer;
+    public Label timeLabel = new Label();
+    private int remainTime = 10;
+
 
     public CellController[][] cellControllers;
 
@@ -25,6 +35,9 @@ public class GridController {
         createCellsGrid();
         NeighborMinesNumbers();
         addEventHandler();
+
+        setTimer();
+        gridPane.add(timeLabel,21,21,1,1);
 
 
     }
@@ -68,7 +81,7 @@ public class GridController {
                             public void handle(MouseEvent mouseEvent) {
                                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                                     updateModel(a, b, true);
-//                                    System.out.println(cellControllers[a][b].cellModel.getNumbers());
+                                    System.out.println(cellControllers[a][b].cellModel.getNumbers());
                                 }
                                 if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                                     updateModel(a, b, false);
@@ -83,6 +96,16 @@ public class GridController {
     public void updateModel(int i, int j, boolean left) {
         if (left) {
             openCell(i, j);
+            if(cellControllers[i][j].cellModel.isMine()){
+                System.out.println("Game Over");
+            }
+            if(cellControllers[i][j].cellModel.isStar()){
+                System.out.println("Star!");
+            }
+            if(cellControllers[i][j].cellModel.isClock()){
+                remainTime = remainTime +30;
+                setTimer();
+            }
         } else {
             cellControllers[i][j].cellModel.setFlag();
         }
@@ -104,6 +127,24 @@ public class GridController {
                     }
         }
     }
+
+    public void setTimer() {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                public void run() {
+                    if (remainTime > 0) {
+                        Platform.runLater(() -> {
+                            timeLabel.setText("Remain Time:" + remainTime);
+                        });
+                        remainTime--;
+                    } else {
+                        timer.cancel();
+                        System.out.println("Time up");
+                    }
+                }
+            }, 0, 1000);
+    }
+    //Reference:https://stackoverflow.com/questions/47655695/javafx-countdown-timer-in-label-settext
 }
 
 
