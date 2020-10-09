@@ -26,7 +26,8 @@ public class GridController {
 
     //star
     public Pane starPane = new Pane();
-    public Label starNumber = new Label("0");
+    public int starNumber = 0;
+    public Label starNumberLabel = new Label();
 
 
 
@@ -44,7 +45,7 @@ public class GridController {
         setTimer();
         gridPane.add(timeLabel,21,21,1,1);
 
-        starPane.getChildren().add(starNumber);
+        starPane.getChildren().add(starNumberLabel);
         starPane.setStyle("-fx-background-color: YELLOW;");
         starPane.setPrefSize(32,32);
         gridPane.add(starPane,22,21,1,1);
@@ -118,6 +119,8 @@ public class GridController {
                         System.out.println("Drag detected");
                         cellControllers[i][j].cellModel.moveStar();
                         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
+                        starNumberLabel.setText(Integer.toString(starNumber+1));
+                        starNumber ++;
                     }
                 });
             }
