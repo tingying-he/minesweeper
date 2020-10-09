@@ -39,11 +39,13 @@ public class CellView extends StackPane {
                 this.getChildren().add(imgView);
             }
             else{
-                Image img = new Image("img/0.png");
+                Image img = new Image(CellModel.numberImgURL(cellModel.getNumbers()));
+//                Image img = new Image("/img/0.png");
                 ImageView imgView = new ImageView(img);
                 imgView.setFitHeight(cellModel.cellSide);
                 imgView.setFitWidth(cellModel.cellSide);
                 this.getChildren().add(imgView);
+//                System.out.println(cellModel.getNumbers());
             }
         }
         else{

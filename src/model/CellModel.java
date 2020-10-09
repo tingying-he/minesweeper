@@ -11,10 +11,13 @@ public class CellModel {
     public static final String mineImgURL = "img/mine.png";
     public static final String starImgURL = "img/star.png";
     public static final String clockImgURL = "img/clock.png";
-
+    public static String numberImgURL(int num){
+        return "img/" + num + ".png";
+    }
 
     public int x,y;
-    private boolean mine;
+    public int numbers;
+    public boolean mine;
     private boolean star;
     private boolean clock;
 
@@ -23,11 +26,11 @@ public class CellModel {
 
     public int cellSide = 32;
 
-    private int N,M,mineNumber;
 
     public CellModel(int x, int y){
         this.x = x;
         this.y = y;
+//        this.gridModel = gridModel;
         mine = false;
         star = false;
         clock = false;
@@ -51,6 +54,14 @@ public class CellModel {
 
     public void setClock(boolean clock) {
         this.clock = clock;
+    }
+
+    public void setNumbers(int numbers){
+        this.numbers = numbers;
+    }
+
+    public int getNumbers() {
+        return numbers;
     }
 
     public boolean isMine(){
