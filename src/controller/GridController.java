@@ -50,6 +50,8 @@ public class GridController {
         starPane.setStyle("-fx-background-color: YELLOW;");
         starPane.setPrefSize(32,32);
         gridPane.add(starPane,22,21,1,1);
+        
+        openAll();
     }
 
     private void createCellsGrid(){
@@ -170,6 +172,14 @@ public class GridController {
             }, 0, 1000);
     }
     //Reference:https://stackoverflow.com/questions/47655695/javafx-countdown-timer-in-label-settext
+
+    public void openAll(){
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < M; j++){
+                cellControllers[i][j].cellModel.setOpen();
+                cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
+            }
+    }
 }
 
 
