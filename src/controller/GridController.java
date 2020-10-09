@@ -4,9 +4,9 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import model.GridModel;
 import view.CellView;
 import view.GridView;
@@ -22,7 +22,12 @@ public class GridController {
     GridPane gridPane = new GridPane();
     public Timer timer;
     public Label timeLabel = new Label();
-    private int remainTime = 10;
+    private int remainTime = 1000;
+
+    //star
+    public Pane starPane = new Pane();
+    public Label starNumber = new Label("0");
+
 
 
     public CellController[][] cellControllers;
@@ -39,7 +44,10 @@ public class GridController {
         setTimer();
         gridPane.add(timeLabel,21,21,1,1);
 
-
+        starPane.getChildren().add(starNumber);
+        starPane.setStyle("-fx-background-color: YELLOW;");
+        starPane.setPrefSize(32,32);
+        gridPane.add(starPane,22,21,1,1);
     }
 
     private void createCellsGrid(){
@@ -90,6 +98,10 @@ public class GridController {
                         }
 
                 );
+
+                if(cellControllers[i][j].cellModel.isStar() && cellControllers[i][j].cellModel.open){
+
+                }
             }
     }
 
@@ -101,6 +113,13 @@ public class GridController {
             }
             if(cellControllers[i][j].cellModel.isStar()){
                 System.out.println("Star!");
+                cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                        System.out.println("Drag detected");
+                        cellControllers[i][j].cellModel.moveStar();
+                        cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
+                    }
+                });
             }
             if(cellControllers[i][j].cellModel.isClock()){
                 remainTime = remainTime +30;
