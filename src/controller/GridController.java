@@ -37,6 +37,7 @@ public class GridController {
         this.N = N;
         this.M = M;
         this.cellControllers = new CellController[N][M];
+        starNumberLabel.setText(Integer.toString(starNumber));
 
         createCellsGrid();
         NeighborMinesNumbers();
@@ -119,8 +120,9 @@ public class GridController {
                         System.out.println("Drag detected");
                         cellControllers[i][j].cellModel.moveStar();
                         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
-                        starNumberLabel.setText(Integer.toString(starNumber+1));
                         starNumber ++;
+                        starNumberLabel.setText(Integer.toString(starNumber));
+
                     }
                 });
             }
