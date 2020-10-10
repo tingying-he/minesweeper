@@ -14,8 +14,8 @@ import view.GridView;
 
 
 public class Main extends Application {
-    int N = 15;
-    int M = 15;
+    int N = 16;
+    int M = 16;
 
 
 

@@ -44,7 +44,7 @@ public class GridController {
     private int remainTime = 10;
     Image clockIconImg = new Image(CellModel.clockImgURL);
     ImageView clockIconImgView = new ImageView(clockIconImg);
-    public Label clockIntroLabel = new Label("Remain Time");
+    public Label clockIntroLabel = new Label("Remaining Time");
 
     //number of opened cells
     AnchorPane openedCellsPane = new AnchorPane();
@@ -69,7 +69,7 @@ public class GridController {
     public Label remainMinesLabel = new Label();
     Image mineIconImg = new Image(CellModel.mineImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
-    public Label mineIntroLabel = new Label("Remain Mines");
+    public Label mineIntroLabel = new Label("Hidden Mines");
 
 
 
@@ -216,7 +216,7 @@ public class GridController {
             }
         }
         remainMines = minesTotalNumber;
-        remainMinesLabel.setText(remainMines+"");
+        remainMinesLabel.setText(remainMines+"/"+minesTotalNumber);
 
 
 
@@ -244,7 +244,7 @@ public class GridController {
                 {
                     for (int ii = i - 1; ii <= i + 1; ii++)
                         for (int jj = j - 1; jj <= j + 1; jj++)
-                            if (ii > 0 && ii < N && jj > 0 && jj < M && cellControllers[ii][jj].cellModel.isMine())
+                            if (ii >= 0 && ii < N && jj >= 0 && jj < M && cellControllers[ii][jj].cellModel.isMine())
                                 cellControllers[i][j].cellModel.numbers++;
                 }
             }
@@ -327,7 +327,7 @@ public class GridController {
         } else {
             cellControllers[i][j].cellModel.setFlag();
             remainMines --;
-            remainMinesLabel.setText(remainMines+"");
+            remainMinesLabel.setText(remainMines+"/"+minesTotalNumber);
         }
         winGame();
         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
@@ -343,7 +343,7 @@ public class GridController {
         if (cellControllers[i][j].cellModel.getNumbers() == 0) {
             for (int ii = i - 1; ii <= i + 1; ii++)
                 for (int jj = j - 1; jj <= j + 1; jj++)
-                    if (ii > 0 && ii < N && jj > 0 && jj < M && !cellControllers[ii][jj].cellModel.open && !cellControllers[ii][jj].cellModel.isMine()) {
+                    if (ii >= 0 && ii < N && jj >= 0 && jj < M && !cellControllers[ii][jj].cellModel.open && !cellControllers[ii][jj].cellModel.isMine()) {
                         openCell(ii, jj);
                         cellControllers[ii][jj].cellView.init(cellControllers[ii][jj].cellModel);
 //            System.out.println(cellControllers[i][j].cellModel.getNumbers());
@@ -360,7 +360,7 @@ public class GridController {
                    Platform.runLater(new Runnable() {
                        @Override
                        public void run() {
-                           timeLabel.setText("Remain Time:" + remainTime);
+                           timeLabel.setText(remainTime + "s");
 
                        }
                    });
