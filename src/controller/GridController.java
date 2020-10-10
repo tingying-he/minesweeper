@@ -6,6 +6,8 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,7 +44,7 @@ public class GridController {
     private int remainTime = 100;
     Image clockIconImg = new Image(CellModel.clockImgURL);
     ImageView clockIconImgView = new ImageView(clockIconImg);
-    public Label clockIntroLabel = new Label("click to add remain time");
+    public Label clockIntroLabel = new Label("Remain Time");
 
     //number of opened cells
     AnchorPane openedCellsPane = new AnchorPane();
@@ -58,7 +60,7 @@ public class GridController {
     public Label starNumberLabel = new Label();
     Image starIconImg = new Image(CellModel.starImgURL);
     ImageView starIconImgView = new ImageView(starIconImg);
-    public Label starIntroLabel = new Label("drag to collect stars");
+    public Label starIntroLabel = new Label("Your Stars");
 
 
     //restart
@@ -72,42 +74,46 @@ public class GridController {
         this.M = M;
 
 
-        gameBox.getChildren().add(gridPane);
-        gameBox.getChildren().add(settingBox);
+        gameBox.getChildren().addAll(gridPane,settingBox);
+        gameBox.setAlignment(Pos.CENTER);
+        gameBox.setSpacing(20);
+        gameBox.setPadding(new Insets(20,20,20,20));
 
-        settingBox.getChildren().addAll(starPane,timePane, openedCellsPane,restartBtn);
+
+        settingBox.getChildren().addAll(starPane,timePane,openedCellsPane,restartBtn);
+//        settingBox.setAlignment(Pos.CENTER);
 
 
 
         //starPane
         starPane.setStyle("-fx-background-color: YELLOW;");
-        starPane.setPrefSize(32, 50);
-        starIntroLabel.setLayoutX(10);
-        starIntroLabel.setLayoutY(50);
+//        starPane.setPrefSize(32, 50);
+        starIntroLabel.setLayoutX(80);
+        starIntroLabel.setLayoutY(10);
         //starPane text
         starNumberLabel.setFont(new Font("Arial", 30));
-        starNumberLabel.setLayoutX(60);
-        starNumberLabel.setLayoutY(10);
+        starNumberLabel.setLayoutX(80);
+        starNumberLabel.setLayoutY(30);
         //starpane animation
-        starIconImgView.setFitHeight(30);
-        starIconImgView.setFitWidth(30);
+        starIconImgView.setFitHeight(50);
+        starIconImgView.setFitWidth(50);
         starIconImgView.setX(10);
         starIconImgView.setY(10);
 
-        starPane.getChildren().addAll(starNumberLabel,starIconImgView,starIntroLabel);
+        starPane.getChildren().addAll(starIntroLabel,starNumberLabel,starIconImgView);
 
         //timePane
         timePane.setStyle("-fx-background-color: Red;");
-        timePane.setPrefSize(32, 50);
-        clockIntroLabel.setLayoutX(10);
-        clockIntroLabel.setLayoutY(50);
+//        timePane.setPrefSize(32, 50);
+        clockIntroLabel.setLayoutX(80);
+        clockIntroLabel.setLayoutY(10);
         //timePane text
-        timeLabel.setFont(new Font("Arial", 20));
-        timeLabel.setLayoutX(60);
-        timeLabel.setLayoutY(10);
+        timeLabel.setFont(new Font("Arial", 30));
+        timeLabel.setLayoutX(80);
+        timeLabel.setLayoutY(30);
         //timePane animation
-        clockIconImgView.setFitHeight(30);
-        clockIconImgView.setFitWidth(30);
+        clockIconImgView.setFitHeight(50);
+        clockIconImgView.setFitWidth(50);
         clockIconImgView.setX(10);
         clockIconImgView.setY(10);
 
@@ -119,16 +125,16 @@ public class GridController {
 //        clockIntroLabel.setLayoutX(10);
 //        clockIntroLabel.setLayoutY(50);
         //openedCellsPane text
-        openedCellsNumberLabel.setFont(new Font("Arial", 20));
+        openedCellsNumberLabel.setFont(new Font("Arial", 12));
         openedCellsNumberLabel.setLayoutX(60);
         openedCellsNumberLabel.setLayoutY(10);
-        //openedCellsPane animation
+//        openedCellsPane animation
         openedCellsImgView.setFitHeight(30);
         openedCellsImgView.setFitWidth(30);
         openedCellsImgView.setX(10);
         openedCellsImgView.setY(10);
 
-        openedCellsPane.getChildren().addAll(openedCellsNumberLabel,openedCellsImgView);
+        openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumberLabel);
 
 
         init(N,M);
@@ -159,7 +165,7 @@ public class GridController {
 
         openedCellsNumber = 0;
 
-        openedCellsNumberLabel.setText(Integer.toString(openedCellsNumber));
+        openedCellsNumberLabel.setText("number of opened cells:"+ openedCellsNumber);
 
 
         createCellsGrid();
@@ -304,7 +310,7 @@ public class GridController {
             public void run() {
                 if (remainTime > 0) {
                     Platform.runLater(() -> {
-                        timeLabel.setText("Remain Time:\n" + remainTime);
+                        timeLabel.setText(remainTime + " s");
                     });
                     remainTime--;
                 } else {
