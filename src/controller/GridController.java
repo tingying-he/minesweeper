@@ -112,7 +112,7 @@ public class GridController {
             openCell(i, j);
             if (cellControllers[i][j].cellModel.isMine()) {
                 System.out.println("Game Over");
-                loseGame();
+                loseGame("You click a mine");
             }
             if (cellControllers[i][j].cellModel.isStar()) {
                 System.out.println("Star!");
@@ -167,6 +167,7 @@ public class GridController {
                 } else {
                     timer.cancel();
                     System.out.println("Time up");
+                    loseGame("Time up");
                 }
             }
         }, 0, 1000);
@@ -181,12 +182,12 @@ public class GridController {
             }
     }
 
-    public void loseGame() {
+    public void loseGame(String whyLoseGame) {
         openAll();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Lose Game");
         alert.setHeaderText("Lose Game");
-        alert.setContentText("Lose Game");
+        alert.setContentText(whyLoseGame);
         alert.show();
     }
 
