@@ -75,7 +75,7 @@ public class GridController {
                 {
                     for (int ii = i - 1; ii <= i + 1; ii++)
                         for (int jj = j - 1; jj <= j + 1; jj++)
-                            if (ii > 0 && ii < 20 && jj > 0 && jj < 20 && cellControllers[ii][jj].cellModel.isMine())
+                            if (ii > 0 && ii < N && jj > 0 && jj < M && cellControllers[ii][jj].cellModel.isMine())
                                 cellControllers[i][j].cellModel.numbers++;
                 }
             }
@@ -136,6 +136,7 @@ public class GridController {
         } else {
             cellControllers[i][j].cellModel.setFlag();
         }
+        winGame();
         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
     }
 
@@ -188,6 +189,27 @@ public class GridController {
         alert.setHeaderText("Lose Game");
         alert.setContentText("Lose Game");
         alert.show();
+    }
+
+    public void winGame(){
+        if(checkWin()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Win Game");
+            alert.setHeaderText("Win Game");
+            alert.setContentText("Win Game");
+            alert.show();
+        }
+    }
+
+    public boolean checkWin(){
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < M; j++){
+                if(cellControllers[i][j].cellModel.isMine())
+                    if(!cellControllers[i][j].cellModel.flag){
+                        return false;
+                    }
+            }
+        return true;
     }
 }
 
