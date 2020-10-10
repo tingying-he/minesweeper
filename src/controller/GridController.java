@@ -41,7 +41,7 @@ public class GridController {
     AnchorPane timePane = new AnchorPane();
     public Timer timer;
     public Label timeLabel = new Label();
-    private int remainTime = 100;
+    private int remainTime = 10;
     Image clockIconImg = new Image(CellModel.clockImgURL);
     ImageView clockIconImgView = new ImageView(clockIconImg);
     public Label clockIntroLabel = new Label("Remain Time");
@@ -62,6 +62,16 @@ public class GridController {
     ImageView starIconImgView = new ImageView(starIconImg);
     public Label starIntroLabel = new Label("Your Stars");
 
+    //remain mines
+    AnchorPane minePane = new AnchorPane();
+    public int minesTotalNumber = 0;
+    public int remainMines = 0;
+    public Label remainMinesLabel = new Label();
+    Image mineIconImg = new Image(CellModel.mineImgURL);
+    ImageView mineIconImgView = new ImageView(mineIconImg);
+    public Label mineIntroLabel = new Label("Remain Mines");
+
+
 
     //restart
     public Button restartBtn = new Button("restart");
@@ -80,7 +90,7 @@ public class GridController {
         gameBox.setPadding(new Insets(20,20,20,20));
 
 
-        settingBox.getChildren().addAll(starPane,timePane,openedCellsPane,restartBtn);
+        settingBox.getChildren().addAll(starPane,timePane,minePane,restartBtn);
 //        settingBox.setAlignment(Pos.CENTER);
 
 
@@ -136,11 +146,34 @@ public class GridController {
 
         openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumberLabel);
 
+        //remain mines
 
+
+        //minePane
+        minePane.setStyle("-fx-background-color: LightGreen;");
+//        starPane.setPrefSize(32, 50);
+        mineIntroLabel.setLayoutX(80);
+        mineIntroLabel.setLayoutY(10);
+        //minePane text
+        remainMinesLabel.setFont(new Font("Arial", 30));
+        remainMinesLabel.setLayoutX(80);
+        remainMinesLabel.setLayoutY(30);
+        //minepane animation
+        mineIconImgView.setFitHeight(50);
+        mineIconImgView.setFitWidth(50);
+        mineIconImgView.setX(10);
+        mineIconImgView.setY(10);
+
+        minePane.getChildren().addAll(mineIntroLabel,remainMinesLabel, mineIconImgView);
+
+
+        setTimer();
         init(N,M);
         restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
-            init(N,M);
+//            init(N,M);
+            restart();
         });
+
 
 
 
@@ -157,6 +190,8 @@ public class GridController {
 
         this.cellControllers = new CellController[N][M];
 
+        timer.cancel();
+        remainTime = 10;
         setTimer();
 
         starNumber = 0;
@@ -172,6 +207,16 @@ public class GridController {
         NeighborMinesNumbers();
         addEventHandler();
 
+        minesTotalNumber = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (cellControllers[i][j].cellModel.isMine()) {
+                    minesTotalNumber++;
+                }
+            }
+        }
+        remainMines = minesTotalNumber;
+        remainMinesLabel.setText(remainMines+"");
 
 
 
@@ -281,6 +326,8 @@ public class GridController {
             }
         } else {
             cellControllers[i][j].cellModel.setFlag();
+            remainMines --;
+            remainMinesLabel.setText(remainMines+"");
         }
         winGame();
         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
@@ -305,22 +352,37 @@ public class GridController {
     }
 
     public void setTimer() {
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                if (remainTime > 0) {
-                    Platform.runLater(() -> {
-                        timeLabel.setText(remainTime + " s");
-                    });
-                    remainTime--;
-                } else {
-                    timer.cancel();
-                    System.out.println("Time up");
-                    loseGame("Time up");
-                }
-            }
-        }, 0, 1000);
+       try {
+           timer = new Timer();
+           timer.schedule(new TimerTask() {
+               @Override
+               public void run() {
+                   Platform.runLater(new Runnable() {
+                       @Override
+                       public void run() {
+                           timeLabel.setText("Remain Time:" + remainTime);
+
+                       }
+                   });
+                   remainTime--;
+                   if (remainTime == 0) {
+                       Platform.runLater(new Runnable() {
+                           @Override
+                           public void run() {
+                               System.out.println("Time up");
+                               loseGame("Time up");
+                           }
+                       });
+
+                   }
+
+               }
+           }, 0, 1000);
+       }catch (Exception e) {
+           e.printStackTrace();
+       }
     }
+
 
     public void openAll() {
         for (int i = 0; i < N; i++)
@@ -339,6 +401,7 @@ public class GridController {
         alert.setContentText(whyLoseGame);
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                setTimer();
                 restart();
             }
         });
