@@ -20,9 +20,15 @@ import java.util.TimerTask;
 public class GridController {
     private int N, M;
     GridPane gridPane = new GridPane();
+
+    //time
     public Timer timer;
     public Label timeLabel = new Label();
     private int remainTime = 1000;
+
+    //number of opened cells
+    private int openedCellsNumber = 0;
+    public Label openedCellsNumberLabel = new Label();
 
     //star
     public Pane starPane = new Pane();
@@ -44,6 +50,9 @@ public class GridController {
 
         setTimer();
         gridPane.add(timeLabel, 21, 21, 1, 1);
+
+        openedCellsNumberLabel.setText(Integer.toString(openedCellsNumber));
+        gridPane.add(openedCellsNumberLabel,23,21,1,1);
 
         starPane.getChildren().add(starNumberLabel);
         starPane.setStyle("-fx-background-color: YELLOW;");
@@ -143,6 +152,8 @@ public class GridController {
     public void openCell(int i, int j) {
         cellControllers[i][j].cellModel.setOpen();
 //        System.out.println(cellControllers[i][j].cellModel.getNumbers());
+        openedCellsNumber ++;
+        openedCellsNumberLabel.setText(Integer.toString(openedCellsNumber));
 
         if (cellControllers[i][j].cellModel.getNumbers() == 0) {
             for (int ii = i - 1; ii <= i + 1; ii++)
@@ -189,6 +200,7 @@ public class GridController {
         alert.setHeaderText("Lose Game");
         alert.setContentText(whyLoseGame);
         alert.show();
+        timer.cancel();
     }
 
     public void winGame() {
@@ -214,7 +226,6 @@ public class GridController {
                     }
                 }}
                 return true;
-
     }
 }
 
