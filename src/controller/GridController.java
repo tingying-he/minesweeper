@@ -2,7 +2,10 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
@@ -11,6 +14,7 @@ import model.GridModel;
 import view.CellView;
 import view.GridView;
 
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,29 +39,56 @@ public class GridController {
     public int starNumber = 0;
     public Label starNumberLabel = new Label();
 
+    //restart
+    public Button restartBtn = new Button("restart");
+
 
     public CellController[][] cellControllers;
 
-    public GridController(int N, int M) {
+    public GridController(int N, int M){
         this.N = N;
         this.M = M;
-        this.cellControllers = new CellController[N][M];
-        starNumberLabel.setText(Integer.toString(starNumber));
 
-        createCellsGrid();
-        NeighborMinesNumbers();
-        addEventHandler();
-
-        setTimer();
         gridPane.add(timeLabel, 21, 21, 1, 1);
 
-        openedCellsNumberLabel.setText(Integer.toString(openedCellsNumber));
         gridPane.add(openedCellsNumberLabel,23,21,1,1);
+
 
         starPane.getChildren().add(starNumberLabel);
         starPane.setStyle("-fx-background-color: YELLOW;");
         starPane.setPrefSize(32, 32);
         gridPane.add(starPane, 22, 21, 1, 1);
+
+        gridPane.add(restartBtn,24,21,1,1);
+
+
+        init(N,M);
+        restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+            init(N,M);
+        });
+
+    }
+    public void init(int N, int M) {
+
+        this.cellControllers = new CellController[N][M];
+
+        setTimer();
+
+        starNumber = 0;
+
+        starNumberLabel.setText(Integer.toString(starNumber));
+
+        openedCellsNumber = 0;
+
+        openedCellsNumberLabel.setText(Integer.toString(openedCellsNumber));
+
+
+        createCellsGrid();
+        NeighborMinesNumbers();
+        addEventHandler();
+
+
+
 
     }
 
@@ -195,7 +226,7 @@ public class GridController {
 
     public void loseGame(String whyLoseGame) {
         openAll();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Lose Game");
         alert.setHeaderText("Lose Game");
         alert.setContentText(whyLoseGame);
@@ -226,6 +257,10 @@ public class GridController {
                     }
                 }}
                 return true;
+    }
+
+    public void restart(){
+        init(N,M);
     }
 }
 
