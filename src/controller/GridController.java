@@ -6,10 +6,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -42,7 +39,7 @@ public class GridController {
     AnchorPane timePane = new AnchorPane();
     public Timer timer;
     public Label timeLabel = new Label();
-    private int remainTime = 1000;
+    private int remainTime = 100;
     Image clockIconImg = new Image(CellModel.clockImgURL);
     ImageView clockIconImgView = new ImageView(clockIconImg);
     public Label clockIntroLabel = new Label("click to add remain time");
@@ -329,11 +326,16 @@ public class GridController {
 
     public void loseGame(String whyLoseGame) {
         openAll();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
         alert.setTitle("Lose Game");
         alert.setHeaderText("Lose Game");
         alert.setContentText(whyLoseGame);
-        alert.show();
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                restart();
+            }
+        });
         timer.cancel();
     }
 
