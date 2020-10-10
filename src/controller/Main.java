@@ -17,10 +17,11 @@ public class Main extends Application {
     int N = 20;
     int M = 20;
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         GridController gridController = new GridController(N,M);
-
 
 
 //        Parent root = FXMLLoader.load(getClass().getResource("../sample/sample.fxml"));

@@ -50,8 +50,7 @@ public class GridController {
         starPane.setStyle("-fx-background-color: YELLOW;");
         starPane.setPrefSize(32,32);
         gridPane.add(starPane,22,21,1,1);
-        
-        openAll();
+
     }
 
     private void createCellsGrid(){
@@ -114,6 +113,7 @@ public class GridController {
             openCell(i, j);
             if(cellControllers[i][j].cellModel.isMine()){
                 System.out.println("Game Over");
+                loseGame();
             }
             if(cellControllers[i][j].cellModel.isStar()){
                 System.out.println("Star!");
@@ -179,6 +179,15 @@ public class GridController {
                 cellControllers[i][j].cellModel.setOpen();
                 cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
             }
+    }
+
+    public void loseGame() {
+        openAll();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Lose Game");
+        alert.setHeaderText("Lose Game");
+        alert.setContentText("Lose Game");
+        alert.show();
     }
 }
 
