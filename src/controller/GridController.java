@@ -38,9 +38,13 @@ public class GridController {
     GridPane gridPane = new GridPane();
 
     //time
+    AnchorPane timePane = new AnchorPane();
     public Timer timer;
     public Label timeLabel = new Label();
     private int remainTime = 1000;
+    Image clockIconImg = new Image(CellModel.clockImgURL);
+    ImageView clockIconImgView = new ImageView(clockIconImg);
+    public Label clockIntroLabel = new Label("click to add remain time");
 
     //number of opened cells
     private int openedCellsNumber = 0;
@@ -69,7 +73,7 @@ public class GridController {
         gameBox.getChildren().add(gridPane);
         gameBox.getChildren().add(settingBox);
 
-        settingBox.getChildren().addAll(starPane,timeLabel, openedCellsNumberLabel,restartBtn);
+        settingBox.getChildren().addAll(starPane,timePane, openedCellsNumberLabel,restartBtn);
 
 
 
@@ -89,6 +93,23 @@ public class GridController {
         starIconImgView.setY(10);
 
         starPane.getChildren().addAll(starNumberLabel,starIconImgView,starIntroLabel);
+
+        //timePane
+        timePane.setStyle("-fx-background-color: YELLOW;");
+        timePane.setPrefSize(32, 50);
+        clockIntroLabel.setLayoutX(10);
+        clockIntroLabel.setLayoutY(50);
+        //starPane text
+        timeLabel.setFont(new Font("Arial", 20));
+        timeLabel.setLayoutX(60);
+        timeLabel.setLayoutY(10);
+        //starpane animation
+        clockIconImgView.setFitHeight(30);
+        clockIconImgView.setFitWidth(30);
+        clockIconImgView.setX(10);
+        clockIconImgView.setY(10);
+
+        timePane.getChildren().addAll(timeLabel,clockIconImgView,clockIntroLabel);
 
 
         init(N,M);
