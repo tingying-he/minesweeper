@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -10,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.util.Duration;
 import model.GridModel;
 import view.CellView;
 import view.GridView;
@@ -39,6 +44,9 @@ public class GridController {
     public int starNumber = 0;
     public Label starNumberLabel = new Label();
 
+    Ellipse el1 = new Ellipse(10, 10);
+
+
     //restart
     public Button restartBtn = new Button("restart");
 
@@ -66,6 +74,13 @@ public class GridController {
         restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             init(N,M);
         });
+
+        //starpane animation
+        el1.setFill(Color.BLUE);
+        starPane.getChildren().addAll(el1);
+
+
+
 
     }
     public void init(int N, int M) {
@@ -156,14 +171,32 @@ public class GridController {
             }
             if (cellControllers[i][j].cellModel.isStar()) {
                 System.out.println("Star!");
+                ScaleTransition st = new ScaleTransition(Duration.millis(1000), el1);
+
+                st.setFromX(1); // original x
+                st.setFromY(1); // original y
+                st.setToX(2); // final x is 25 times the original
+                st.setToY(2); // final y is 25 times the original
+                st.setCycleCount(Timeline.INDEFINITE);
+                st.setAutoReverse(true);
                 cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
+                        st.play();
                         cellControllers[i][j].cellModel.moveStar();
                         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
                         starNumber++;
                         starNumberLabel.setText(Integer.toString(starNumber));
 
+                    }
+                });
+
+
+                cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        System.out.println("stop");
+                        st.stop();
                     }
                 });
             }
