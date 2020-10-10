@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -237,18 +238,20 @@ public class GridController {
             }
             if (cellControllers[i][j].cellModel.isStar()) {
                 System.out.println("Star!");
-                ScaleTransition st = new ScaleTransition(Duration.millis(300), starIconImgView);
+//                ScaleTransition st = new ScaleTransition(Duration.millis(300), starIconImgView);
 
-                st.setFromX(1); // original x
-                st.setFromY(1); // original y
-                st.setToX(1.4); // final x is 25 times the original
-                st.setToY(1.4); // final y is 25 times the original
-                st.setCycleCount(Timeline.INDEFINITE);
-                st.setAutoReverse(true);
+                RotateTransition starRotateTransition =
+                        new RotateTransition(Duration.millis(100), starIconImgView);
+                starRotateTransition.setFromAngle(-30);
+                starRotateTransition.setToAngle(30);
+                starRotateTransition.setCycleCount(Timeline.INDEFINITE);
+                starRotateTransition.setAutoReverse(true);
+//                starRotateTransition.play();
+
                 cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
-                        st.play();
+                        starRotateTransition.play();
                         cellControllers[i][j].cellModel.moveStar();
                         cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
                         starNumber++;
@@ -262,7 +265,7 @@ public class GridController {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         System.out.println("stop");
-                        st.stop();
+                        starRotateTransition.stop();
                     }
                 });
             }
