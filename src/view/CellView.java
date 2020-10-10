@@ -1,5 +1,7 @@
 package view;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,6 +10,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import model.CellModel;
 
 /**
@@ -44,6 +47,7 @@ public class CellView extends StackPane {
                 imgView.setFitHeight(cellModel.cellSide);
                 imgView.setFitWidth(cellModel.cellSide);
                 this.getChildren().add(imgView);
+
             }
             else{
                 Image img = new Image(CellModel.numberImgURL(cellModel.getNumbers()));

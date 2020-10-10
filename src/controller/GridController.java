@@ -47,8 +47,12 @@ public class GridController {
     public Label clockIntroLabel = new Label("click to add remain time");
 
     //number of opened cells
+    AnchorPane openedCellsPane = new AnchorPane();
     private int openedCellsNumber = 0;
     public Label openedCellsNumberLabel = new Label();
+    Image openedCellsIconImg = new Image(CellModel.blockImgURL);
+    ImageView openedCellsImgView = new ImageView(openedCellsIconImg);
+//    public Label openedCellsIntroLabel = new Label("click to add remain time");
 
     //star
     AnchorPane starPane = new AnchorPane();
@@ -73,7 +77,7 @@ public class GridController {
         gameBox.getChildren().add(gridPane);
         gameBox.getChildren().add(settingBox);
 
-        settingBox.getChildren().addAll(starPane,timePane, openedCellsNumberLabel,restartBtn);
+        settingBox.getChildren().addAll(starPane,timePane, openedCellsPane,restartBtn);
 
 
 
@@ -95,21 +99,38 @@ public class GridController {
         starPane.getChildren().addAll(starNumberLabel,starIconImgView,starIntroLabel);
 
         //timePane
-        timePane.setStyle("-fx-background-color: YELLOW;");
+        timePane.setStyle("-fx-background-color: Red;");
         timePane.setPrefSize(32, 50);
         clockIntroLabel.setLayoutX(10);
         clockIntroLabel.setLayoutY(50);
-        //starPane text
+        //timePane text
         timeLabel.setFont(new Font("Arial", 20));
         timeLabel.setLayoutX(60);
         timeLabel.setLayoutY(10);
-        //starpane animation
+        //timePane animation
         clockIconImgView.setFitHeight(30);
         clockIconImgView.setFitWidth(30);
         clockIconImgView.setX(10);
         clockIconImgView.setY(10);
 
         timePane.getChildren().addAll(timeLabel,clockIconImgView,clockIntroLabel);
+
+        //openedCellsPane
+        openedCellsPane.setStyle("-fx-background-color: LightBlue;");
+        openedCellsPane.setPrefSize(32, 50);
+//        clockIntroLabel.setLayoutX(10);
+//        clockIntroLabel.setLayoutY(50);
+        //openedCellsPane text
+        openedCellsNumberLabel.setFont(new Font("Arial", 20));
+        openedCellsNumberLabel.setLayoutX(60);
+        openedCellsNumberLabel.setLayoutY(10);
+        //openedCellsPane animation
+        openedCellsImgView.setFitHeight(30);
+        openedCellsImgView.setFitWidth(30);
+        openedCellsImgView.setX(10);
+        openedCellsImgView.setY(10);
+
+        openedCellsPane.getChildren().addAll(openedCellsNumberLabel,openedCellsImgView);
 
 
         init(N,M);
@@ -247,8 +268,10 @@ public class GridController {
             }
             if (cellControllers[i][j].cellModel.isClock()) {
                 remainTime = remainTime + 30;
+                timer.cancel();
                 setTimer();
                 cellControllers[i][j].cellModel.moveClock();
+
             }
         } else {
             cellControllers[i][j].cellModel.setFlag();
@@ -292,7 +315,6 @@ public class GridController {
             }
         }, 0, 1000);
     }
-    //Reference:https://stackoverflow.com/questions/47655695/javafx-countdown-timer-in-label-settext
 
     public void openAll() {
         for (int i = 0; i < N; i++)
