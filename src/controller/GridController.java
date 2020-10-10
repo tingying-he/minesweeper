@@ -9,15 +9,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
+import model.CellModel;
 import model.GridModel;
 import view.CellView;
 import view.GridView;
+
 
 import java.util.Optional;
 import java.util.Timer;
@@ -28,6 +32,9 @@ import java.util.TimerTask;
  */
 public class GridController {
     private int N, M;
+    HBox gameBox = new HBox();
+    VBox settingBox = new VBox();
+
     GridPane gridPane = new GridPane();
 
     //time
@@ -40,11 +47,12 @@ public class GridController {
     public Label openedCellsNumberLabel = new Label();
 
     //star
-    public Pane starPane = new Pane();
+    AnchorPane starPane = new AnchorPane();
     public int starNumber = 0;
     public Label starNumberLabel = new Label();
-
-    Ellipse el1 = new Ellipse(10, 10);
+    Image starIconImg = new Image(CellModel.starImgURL);
+    ImageView starIconImgView = new ImageView(starIconImg);
+    public Label starIntroLabel = new Label("drag to collect stars");
 
 
     //restart
@@ -57,17 +65,30 @@ public class GridController {
         this.N = N;
         this.M = M;
 
-        gridPane.add(timeLabel, 21, 21, 1, 1);
 
-        gridPane.add(openedCellsNumberLabel,23,21,1,1);
+        gameBox.getChildren().add(gridPane);
+        gameBox.getChildren().add(settingBox);
+
+        settingBox.getChildren().addAll(starPane,timeLabel, openedCellsNumberLabel,restartBtn);
 
 
-        starPane.getChildren().add(starNumberLabel);
+
+        //starPane
         starPane.setStyle("-fx-background-color: YELLOW;");
-        starPane.setPrefSize(32, 32);
-        gridPane.add(starPane, 22, 21, 1, 1);
+        starPane.setPrefSize(32, 50);
+        starIntroLabel.setLayoutX(10);
+        starIntroLabel.setLayoutY(50);
+        //starPane text
+        starNumberLabel.setFont(new Font("Arial", 30));
+        starNumberLabel.setLayoutX(60);
+        starNumberLabel.setLayoutY(10);
+        //starpane animation
+        starIconImgView.setFitHeight(30);
+        starIconImgView.setFitWidth(30);
+        starIconImgView.setX(10);
+        starIconImgView.setY(10);
 
-        gridPane.add(restartBtn,24,21,1,1);
+        starPane.getChildren().addAll(starNumberLabel,starIconImgView,starIntroLabel);
 
 
         init(N,M);
@@ -75,15 +96,18 @@ public class GridController {
             init(N,M);
         });
 
-        //starpane animation
-        el1.setFill(Color.BLUE);
-        starPane.getChildren().addAll(el1);
+
 
 
 
 
     }
     public void init(int N, int M) {
+
+
+
+
+
 
         this.cellControllers = new CellController[N][M];
 
@@ -171,12 +195,12 @@ public class GridController {
             }
             if (cellControllers[i][j].cellModel.isStar()) {
                 System.out.println("Star!");
-                ScaleTransition st = new ScaleTransition(Duration.millis(1000), el1);
+                ScaleTransition st = new ScaleTransition(Duration.millis(300), starIconImgView);
 
                 st.setFromX(1); // original x
                 st.setFromY(1); // original y
-                st.setToX(2); // final x is 25 times the original
-                st.setToY(2); // final y is 25 times the original
+                st.setToX(1.4); // final x is 25 times the original
+                st.setToY(1.4); // final y is 25 times the original
                 st.setCycleCount(Timeline.INDEFINITE);
                 st.setAutoReverse(true);
                 cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
@@ -236,7 +260,7 @@ public class GridController {
             public void run() {
                 if (remainTime > 0) {
                     Platform.runLater(() -> {
-                        timeLabel.setText("Remain Time:" + remainTime);
+                        timeLabel.setText("Remain Time:\n" + remainTime);
                     });
                     remainTime--;
                 } else {

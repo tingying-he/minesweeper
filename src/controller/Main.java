@@ -14,8 +14,8 @@ import view.GridView;
 
 
 public class Main extends Application {
-    int N = 20;
-    int M = 20;
+    int N = 15;
+    int M = 15;
 
 
 
@@ -26,7 +26,7 @@ public class Main extends Application {
 
 //        Parent root = FXMLLoader.load(getClass().getResource("../sample/sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(gridController.gridPane, 1000, 1000));
+        primaryStage.setScene(new Scene(gridController.gameBox, 1000, 1000));
         primaryStage.show();
     }
 
