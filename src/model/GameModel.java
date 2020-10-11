@@ -3,6 +3,7 @@ package model;
 import controller.CellController;
 import controller.GameController;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -26,6 +27,8 @@ public class GameModel {
 
     public double starRate = 0.03;
     public double clockRate = 0.03;
+
+    public int remainTime = 60;
 
     public GameModel(GameController gameController){
         this.gameController = gameController;
@@ -81,7 +84,64 @@ public class GameModel {
         }
     }
 
+    public void addEventHandler() {
+        for (int i = 0; i < gameController.N; i++) {
+            for (int j = 0; j < gameController.M; j++) {
+                int a = i;
+                int b = j;
+                cellControllers[i][j].cellView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
+                            @Override
+                            public void handle(MouseEvent mouseEvent) {
+                                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                                    updateModel(a, b, true);
+                                    System.out.println(cellControllers[a][b].cellModel.getNeighborMinesNum());
+                                }
+                                if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                                    updateModel(a, b, false);
+                                }
+                            }
+                        }
+                );
+            }
+        }
+    }
+
+    public void updateModel(int i, int j, boolean left) {
+        if (left) {
+            openCell(i, j);
+            if (cellControllers[i][j].cellModel.isMine()) {
+//                System.out.println("Game Over");
+                loseGame("You click a mine");
+            }
+
+            if (cellControllers[i][j].cellModel.isClock()) {
+                gameController.gameView.timer.cancel();
+                gameController.gameModel.remainTime = gameController.gameModel.remainTime + 30;
+                setTimer();
+                cellControllers[i][j].cellModel.removeClock();
+
+                ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(300), gameController.gameView.clockIconImgView);
+                clockScaleTransition.setFromX(0.8); // original x
+                clockScaleTransition.setFromY(0.8); // original y
+                clockScaleTransition.setToX(1); // final x is 25 times the original
+                clockScaleTransition.setToY(1); // final y is 25 times the original
+//                clockScaleTransition.setCycleCount(Timeline.INDEFINITE);
+                clockScaleTransition.setAutoReverse(true);
+                clockScaleTransition.play();
+
+
+            }
+        } else {
+            cellControllers[i][j].cellModel.setFlag();
+
+
+            gameController.gameView.remainMines --;
+            gameController.gameView.remainMinesLabel.setText(gameController.gameView.remainMines+"/"+gameController.gameView.minesTotalNumber);
+        }
+        checkWin();
+        cellControllers[i][j].cellView.init(cellControllers[i][j]);
+    }
 
     //Flood-fill
     public void openCell(int i, int j) {
@@ -103,13 +163,16 @@ public class GameModel {
                 public void handle(MouseEvent event) {
 //                    System.out.println("Drag detected");
                     starRotateTransition.play();
+
                     cellControllers[i][j].cellModel.removeStar();
                     cellControllers[i][j].cellView.init(cellControllers[i][j]);
+
                     gameController.gameView.starNumber++;
                     gameController.gameView.starNumberLabel.setText(Integer.toString(gameController.gameView.starNumber));
 
                 }
             });
+
 
 
             cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
@@ -143,11 +206,11 @@ public class GameModel {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            gameController.gameView.timeLabel.setText(gameController.gameView.remainTime + "s");
+                            gameController.gameView.timeLabel.setText(gameController.gameModel.remainTime + "s");
                         }
                     });
-                    gameController.gameView.remainTime--;
-                    if (gameController.gameView.remainTime == 0) {
+                    gameController.gameModel.remainTime--;
+                    if (gameController.gameModel.remainTime == 0) {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {

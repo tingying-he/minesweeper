@@ -31,9 +31,9 @@ public class GameView extends BorderPane {
     AnchorPane timePane = new AnchorPane();
     public Timer timer;
     public Label timeLabel = new Label();
-    public int remainTime = 10;
+
     Image clockIconImg = new Image(CellModel.clockImgURL);
-    ImageView clockIconImgView = new ImageView(clockIconImg);
+    public ImageView clockIconImgView = new ImageView(clockIconImg);
     public Label clockIntroLabel = new Label("Remaining Time");
 
     //number of opened cells
@@ -197,7 +197,7 @@ public class GameView extends BorderPane {
         gameController.gameModel.cellControllers = new CellController[N][M];
 
         timer.cancel();
-        remainTime = 10;
+        gameController.gameModel.remainTime = 60;
         gameController.gameModel.setTimer();
 
         starNumber = 0;
@@ -213,7 +213,7 @@ public class GameView extends BorderPane {
         gameController.gameModel.putNeighborMinesNum();
         gameController.gameModel.putStars(gameController.gameModel.starRate);
         gameController.gameModel.putClocks(gameController.gameModel.clockRate);
-        gameController.addEventHandler();
+        gameController.gameModel.addEventHandler();
 
         minesTotalNumber = 0;
         for (int i = 0; i < N; i++) {
