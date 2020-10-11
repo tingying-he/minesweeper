@@ -180,10 +180,6 @@ public class GameView extends BorderPane {
 
         minePane.getChildren().addAll(mineIntroLabel,remainMinesLabel, mineIconImgView);
 
-
-
-
-
         //title
         titleLabel.setFont(new Font("Arial", 30) );
 
@@ -230,7 +226,7 @@ public class GameView extends BorderPane {
         remainMines = minesTotalNumber;
         remainMinesLabel.setText(remainMines+"/"+minesTotalNumber);
     }
-    public void createCellsGrid() {
+    private void createCellsGrid() {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
                 gameController.gameModel.cellControllers[i][j] = new CellController();

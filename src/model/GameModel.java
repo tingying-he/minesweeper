@@ -28,7 +28,6 @@ public class GameModel {
         this.gameController = gameController;
     }
 
-
     public void NeighborMinesNumbers() {
 
         for (int i = 0; i < gameController.N; i++)
@@ -43,7 +42,8 @@ public class GameModel {
                 {
                     for (int ii = i - 1; ii <= i + 1; ii++)
                         for (int jj = j - 1; jj <= j + 1; jj++)
-                            if (ii >= 0 && ii < gameController.N && jj >= 0 && jj < gameController.M && cellControllers[ii][jj].cellModel.isMine())
+                            if (isInMinefield(ii,jj)
+                                    && cellControllers[ii][jj].cellModel.isMine())
                                 cellControllers[i][j].cellModel.neighborMinesNum++;
                 }
             }
@@ -168,7 +168,9 @@ public class GameModel {
         if (cellControllers[i][j].cellModel.getNeighborMinesNum() == 0) {
             for (int ii = i - 1; ii <= i + 1; ii++)
                 for (int jj = j - 1; jj <= j + 1; jj++)
-                    if (ii >= 0 && ii < gameController.N && jj >= 0 && jj < gameController.M && !cellControllers[ii][jj].cellModel.isOpen() && !cellControllers[ii][jj].cellModel.isMine()) {
+                    if (isInMinefield(ii,jj)&&
+                            !cellControllers[ii][jj].cellModel.isOpen() &&
+                            !cellControllers[ii][jj].cellModel.isMine()) {
                         openCell(ii, jj);
                         cellControllers[ii][jj].cellView.init(cellControllers[ii][jj]);
 
@@ -261,5 +263,13 @@ public class GameModel {
 
     public void restart(){
         gameController.gameView.init(gameController.N,gameController.M);
+    }
+
+    public boolean isInMinefield(int i, int j){
+        if(i >= 0 && i < gameController.N && j >= 0 && j < gameController.M){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
