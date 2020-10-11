@@ -81,54 +81,7 @@ public class GameModel {
         }
     }
 
-    public void addEventHandler() {
-        for (int i = 0; i < gameController.N; i++) {
-            for (int j = 0; j < gameController.M; j++) {
-                int a = i;
-                int b = j;
-                cellControllers[i][j].cellView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
-                            @Override
-                            public void handle(MouseEvent mouseEvent) {
-                                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                                    updateModel(a, b, true);
-                                    System.out.println(cellControllers[a][b].cellModel.getNeighborMinesNum());
-                                }
-                                if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                                    updateModel(a, b, false);
-                                }
-                            }
-                        }
-
-                );
-
-            }
-        }
-    }
-
-    public void updateModel(int i, int j, boolean left) {
-        if (left) {
-            openCell(i, j);
-            if (cellControllers[i][j].cellModel.isMine()) {
-//                System.out.println("Game Over");
-                loseGame("You click a mine");
-            }
-
-            if (cellControllers[i][j].cellModel.isClock()) {
-                gameController.gameView.timer.cancel();
-                gameController.gameView.remainTime = gameController.gameView.remainTime + 30;
-                setTimer();
-                cellControllers[i][j].cellModel.removeClock();
-
-            }
-        } else {
-            cellControllers[i][j].cellModel.setFlag();
-            gameController.gameView.remainMines --;
-            gameController.gameView.remainMinesLabel.setText(gameController.gameView.remainMines+"/"+gameController.gameView.minesTotalNumber);
-        }
-        winGame();
-        cellControllers[i][j].cellView.init(cellControllers[i][j]);
-    }
 
     //Flood-fill
     public void openCell(int i, int j) {
@@ -148,7 +101,7 @@ public class GameModel {
 
             cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    System.out.println("Drag detected");
+//                    System.out.println("Drag detected");
                     starRotateTransition.play();
                     cellControllers[i][j].cellModel.removeStar();
                     cellControllers[i][j].cellView.init(cellControllers[i][j]);
@@ -162,22 +115,22 @@ public class GameModel {
             cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    System.out.println("stop");
+//                    System.out.println("stop");
                     starRotateTransition.stop();
                 }
             });
         }
         if (cellControllers[i][j].cellModel.getNeighborMinesNum() == 0) {
-            for (int ii = i - 1; ii <= i + 1; ii++)
-                for (int jj = j - 1; jj <= j + 1; jj++)
-                    if (isInMinefield(ii,jj)&&
+            for (int ii = i - 1; ii <= i + 1; ii++) {
+                for (int jj = j - 1; jj <= j + 1; jj++) {
+                    if (isInMinefield(ii, jj) &&
                             !cellControllers[ii][jj].cellModel.isOpen() &&
                             !cellControllers[ii][jj].cellModel.isMine()) {
                         openCell(ii, jj);
                         cellControllers[ii][jj].cellView.init(cellControllers[ii][jj]);
-
-//            System.out.println(cellControllers[i][j].cellModel.getNumbers());
                     }
+                }
+            }
         }
     }
 
@@ -191,7 +144,6 @@ public class GameModel {
                         @Override
                         public void run() {
                             gameController.gameView.timeLabel.setText(gameController.gameView.remainTime + "s");
-
                         }
                     });
                     gameController.gameView.remainTime--;
@@ -203,16 +155,14 @@ public class GameModel {
                                 loseGame("Time up");
                             }
                         });
-
                     }
-
                 }
             }, 0, 1000);
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    //Reference:https://stackoverflow.com/questions/34882640/java-count-down-timer-using-javafx
 
     public void openAll() {
         for (int i = 0; i < gameController.N; i++)
@@ -238,8 +188,8 @@ public class GameModel {
         gameController.gameView.timer.cancel();
     }
 
-    public void winGame() {
-        if (checkWin()) {
+    public void checkWin() {
+        if (winGame()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Win Game");
             alert.setHeaderText("Win Game");
@@ -248,7 +198,7 @@ public class GameModel {
         }
     }
 
-    public boolean checkWin() {
+    public boolean winGame() {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
                 if (cellControllers[i][j].cellModel.isMine()) {

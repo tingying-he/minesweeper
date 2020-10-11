@@ -197,7 +197,7 @@ public class GameView extends BorderPane {
         gameController.gameModel.cellControllers = new CellController[N][M];
 
         timer.cancel();
-        remainTime = 200;
+        remainTime = 10;
         gameController.gameModel.setTimer();
 
         starNumber = 0;
@@ -213,7 +213,7 @@ public class GameView extends BorderPane {
         gameController.gameModel.putNeighborMinesNum();
         gameController.gameModel.putStars(gameController.gameModel.starRate);
         gameController.gameModel.putClocks(gameController.gameModel.clockRate);
-        gameController.gameModel.addEventHandler();
+        gameController.addEventHandler();
 
         minesTotalNumber = 0;
         for (int i = 0; i < N; i++) {
