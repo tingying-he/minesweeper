@@ -51,12 +51,10 @@ public class CellView extends StackPane {
 
 
             } else if (cellController.cellModel.isClock()) {
-                Image img = new Image(CellModel.clockImgURL);
-                ImageView imgView = new ImageView(img);
-                imgView.setFitHeight(cellController.cellModel.cellSide);
-                imgView.setFitWidth(cellController.cellModel.cellSide);
-                this.getChildren().add(imgView);
-                ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(1000), imgView);
+                ImageView clockImgView = new ImageView();
+                clockImgView = drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.clockImgURL);
+                this.getChildren().add(clockImgView);
+                ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(1000), clockImgView);
                 clockScaleTransition.setFromX(1); // original x
                 clockScaleTransition.setFromY(1); // original y
                 clockScaleTransition.setToX(0.8); // final x is 25 times the original
@@ -66,31 +64,25 @@ public class CellView extends StackPane {
                 clockScaleTransition.play();
             }
             else{
-                Image img = new Image(CellModel.numberImgURL(cellController.cellModel.getNumbers()));
-//                Image img = new Image("/img/0.png");
-                ImageView imgView = new ImageView(img);
-                imgView.setFitHeight(cellController.cellModel.cellSide);
-                imgView.setFitWidth(cellController.cellModel.cellSide);
-                this.getChildren().add(imgView);
-//                System.out.println(cellModel.getNumbers());
+                this.getChildren().add(drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.numberImgURL(cellController.cellModel.getNumbers())));
             }
         }
         else{
             if(cellController.cellModel.flag){
-                Image img = new Image(CellModel.flagImgURL);
-                ImageView imgView = new ImageView(img);
-                imgView.setFitHeight(cellController.cellModel.cellSide);
-                imgView.setFitWidth(cellController.cellModel.cellSide);
-                this.getChildren().add(imgView);
+                this.getChildren().add(drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.flagImgURL));
             }
             else{
-                Image img = new Image(CellModel.blockImgURL);
-                ImageView imgView = new ImageView(img);
-                imgView.setFitHeight(cellController.cellModel.cellSide);
-                imgView.setFitWidth(cellController.cellModel.cellSide);
-                this.getChildren().add(imgView);
+                this.getChildren().add(drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.blockImgURL));
             }
         }
     }
 
+    private ImageView drawImg(int width,int height, String imgURL){
+        Image img = new Image(imgURL);
+        ImageView imgView = new ImageView(img);
+        imgView.setFitHeight(height);
+        imgView.setFitWidth(width);
+        return imgView;
+
+    }
 }
