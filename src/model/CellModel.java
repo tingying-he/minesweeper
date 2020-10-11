@@ -28,6 +28,7 @@ public class CellModel {
     private boolean flag;
 
     public int cellSide = 32;
+    private double mineRate = 0.15;
 
 
 
@@ -65,7 +66,7 @@ public class CellModel {
     public boolean isFlag(){return flag;}
 
     private void putMine(){
-        if(Math.random()<0.15)
+        if(Math.random()<mineRate)
             mine = true;
     }
 

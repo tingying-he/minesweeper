@@ -24,13 +24,17 @@ public class GameModel {
 
     public CellController[][] cellControllers;
 
+    public double starRate = 0.03;
+    public double clockRate = 0.03;
+
+
     public GameModel(GameController gameController){
         this.gameController = gameController;
     }
 
     public void NeighborMinesNumbers() {
 
-        for (int i = 0; i < gameController.N; i++)
+        for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
 
                 if (cellControllers[i][j].cellModel.isMine()) {
@@ -42,37 +46,40 @@ public class GameModel {
                 {
                     for (int ii = i - 1; ii <= i + 1; ii++)
                         for (int jj = j - 1; jj <= j + 1; jj++)
-                            if (isInMinefield(ii,jj)
+                            if (isInMinefield(ii, jj)
                                     && cellControllers[ii][jj].cellModel.isMine())
                                 cellControllers[i][j].cellModel.neighborMinesNum++;
                 }
             }
+        }
     }
 
-    public void putStars(){
-        for (int i = 0; i < gameController.N; i++)
+    public void putStars(double starRate){
+        for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
-                if(cellControllers[i][j].cellModel.neighborMinesNum == 0 &&
+                if (cellControllers[i][j].cellModel.neighborMinesNum == 0 &&
                         !cellControllers[i][j].cellModel.isMine() &&
                         !cellControllers[i][j].cellModel.isClock() &&
-                        Math.random()<0.03
-                ){
+                        Math.random() < starRate
+                ) {
                     cellControllers[i][j].cellModel.setStar(true);
                 }
             }
+        }
     }
 
-    public void putClocks(){
-        for (int i = 0; i < gameController.N; i++)
+    public void putClocks(double clockRate){
+        for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
-                if(cellControllers[i][j].cellModel.neighborMinesNum == 0 &&
+                if (cellControllers[i][j].cellModel.neighborMinesNum == 0 &&
                         !cellControllers[i][j].cellModel.isMine() &&
                         !cellControllers[i][j].cellModel.isStar() &&
-                        Math.random()<0.03
-                ){
+                        Math.random() < clockRate
+                ) {
                     cellControllers[i][j].cellModel.setClock(true);
                 }
             }
+        }
     }
 
     public void addEventHandler() {
