@@ -76,17 +76,17 @@ public class CellModel {
 
 
     private void putMine(){
-        if(Math.random()<0.2)
+        if(Math.random()<0.15)
             mine = true;
     }
 
     private void putStar(){
-        if(Math.random()<0.05 && mine == false)
+        if(Math.random()<0.03 && mine == false)
             star = true;
     }
 
     private void putClock(){
-        if(Math.random()<0.05 && mine == false && star == false)
+        if(Math.random()<0.03 && mine == false && star == false)
             clock = true;
     }
 

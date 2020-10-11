@@ -27,7 +27,7 @@ public class Main extends Application {
 
 //        Parent root = FXMLLoader.load(getClass().getResource("../sample/sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(gridController.gamePane, 800, 600));
+        primaryStage.setScene(new Scene(gridController.gamePane, 800, 700));
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(e -> {

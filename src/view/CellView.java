@@ -33,6 +33,8 @@ public class CellView extends StackPane {
             if (cellModel.isMine()) {
                 Image img = new Image(CellModel.mineImgURL);
                 ImageView imgView = new ImageView(img);
+                imgView.setFitHeight(cellModel.cellSide);
+                imgView.setFitWidth(cellModel.cellSide);
                 this.getChildren().add(imgView);
             } else if (cellModel.isStar()) {
                 Image img = new Image(CellModel.starImgURL);

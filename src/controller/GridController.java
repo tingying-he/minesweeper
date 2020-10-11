@@ -34,7 +34,7 @@ public class GridController {
     private int N, M;
     BorderPane gamePane= new BorderPane();
     VBox statusPane = new VBox();
-    HBox btnPane = new HBox();
+    VBox btnPane = new VBox();
 
     GridPane gridPane = new GridPane();
 
@@ -51,7 +51,7 @@ public class GridController {
     AnchorPane openedCellsPane = new AnchorPane();
     private int openedCellsNumber = 0;
     public Label openedCellsNumberLabel = new Label();
-    Image openedCellsIconImg = new Image(CellModel.blockImgURL);
+    Image openedCellsIconImg = new Image("/img/1.png");
     ImageView openedCellsImgView = new ImageView(openedCellsIconImg);
     public Label openedCellsIntroLabel = new Label("Opened Cells");
 
@@ -68,17 +68,19 @@ public class GridController {
     public int minesTotalNumber = 0;
     public int remainMines = 0;
     public Label remainMinesLabel = new Label();
-    Image mineIconImg = new Image(CellModel.mineImgURL);
+    Image mineIconImg = new Image(CellModel.flagImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
     public Label mineIntroLabel = new Label("Hidden Mines");
 
     //tutorial
 
-    AnchorPane tutorialPane = new AnchorPane();
-    public Label tutorialLabel = new Label("drag STARS to collect, click CLOCKS to gain time");
+//    AnchorPane tutorialPane = new AnchorPane();
+    Image tutorialImg = new Image("/img/tutorial.png");
+    ImageView tutorialImgView = new ImageView(tutorialImg);
 
-
-
+    //Title
+    AnchorPane titlePane = new AnchorPane();
+    Label titleLabel = new Label("Minesweeper");
     //restart
     public Button restartBtn = new Button("New Game");
     public Button exitBtn = new Button("Exit");
@@ -94,19 +96,34 @@ public class GridController {
 //        gamePane.getChildren().addAll(gridPane,statusPane);
 //        gamePane.setAlignment(Pos.CENTER);
 //        gamePane.setSpacing(20);
-        gamePane.setTop(tutorialPane);
+        gamePane.setTop(titlePane);
         gamePane.setCenter(gridPane);
         gamePane.setRight(statusPane);
-        gamePane.setBottom(btnPane);
+//        gamePane.setBottom(btnPane);
 
         gamePane.setPadding(new Insets(20,30,20,30));
 
+        gridPane.setPadding(new Insets(10,0,0,0));
 
-        statusPane.getChildren().addAll(starPane,timePane,minePane,openedCellsPane);
+
+        statusPane.getChildren().addAll(starPane,timePane,minePane,openedCellsPane,btnPane);
 //        statusPane.setAlignment(Pos.CENTER);
+        statusPane.setSpacing(3);
+
         btnPane.getChildren().addAll(restartBtn,exitBtn);
-        btnPane.setAlignment(Pos.CENTER_RIGHT);
-        btnPane.setSpacing(20);
+        btnPane.setAlignment(Pos.CENTER);
+        btnPane.setSpacing(10);
+        btnPane.setPadding(new Insets(100,0,0,0));
+
+
+        restartBtn.setPrefSize(150,35);
+        restartBtn.setStyle("-fx-background-color:#508EAC");
+        restartBtn.setTextFill(Color.WHITE);
+
+        exitBtn.setPrefSize(150,35);
+        exitBtn.setStyle("-fx-background-color:#508EAC");
+        exitBtn.setTextFill(Color.WHITE);
+
 
 
 
@@ -182,11 +199,20 @@ public class GridController {
         minePane.getChildren().addAll(mineIntroLabel,remainMinesLabel, mineIconImgView);
 
 
-        //tutorial
-        tutorialLabel.setLayoutX(10);
-        tutorialLabel.setLayoutY(10);
-        tutorialPane.getChildren().addAll(tutorialLabel);
 
+
+
+        //title
+        titleLabel.setFont(new Font("Arial", 30) );
+
+        //tutorial
+        tutorialImgView.setLayoutX(0);
+        tutorialImgView.setLayoutY(40);
+        tutorialImgView.setFitWidth(428*0.85);
+        tutorialImgView.setFitHeight(60*0.85);
+
+
+        titlePane.getChildren().addAll(titleLabel,tutorialImgView);
 
         setTimer();
         init(N,M);
@@ -221,7 +247,7 @@ public class GridController {
         this.cellControllers = new CellController[N][M];
 
         timer.cancel();
-        remainTime = 10;
+        remainTime = 200;
         setTimer();
 
         starNumber = 0;
