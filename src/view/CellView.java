@@ -83,6 +83,5 @@ public class CellView extends StackPane {
         imgView.setFitHeight(height);
         imgView.setFitWidth(width);
         return imgView;
-
     }
 }

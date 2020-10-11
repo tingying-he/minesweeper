@@ -128,8 +128,8 @@ public class GameModel {
                 });
             }
             if (cellControllers[i][j].cellModel.isClock()) {
-                gameController.gameView.remainTime = gameController.gameView.remainTime + 30;
                 gameController.gameView.timer.cancel();
+                gameController.gameView.remainTime = gameController.gameView.remainTime + 30;
                 setTimer();
                 cellControllers[i][j].cellModel.moveClock();
 

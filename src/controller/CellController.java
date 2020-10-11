@@ -1,8 +1,5 @@
 package controller;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import model.CellModel;
 import view.CellView;
 
@@ -14,9 +11,7 @@ public class CellController{
 
     public CellController(){
     }
-
     public CellModel cellModel = new CellModel(this);
     public CellView cellView = new CellView(this);
-
 
 }
