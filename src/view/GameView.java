@@ -196,9 +196,9 @@ public class GameView extends BorderPane {
     public void init(int N, int M){
         gameController.gameModel.cellControllers = new CellController[N][M];
 
-        timer.cancel();
+//        timer.cancel();
         gameController.gameModel.remainTime = gameController.gameModel.totalTime;
-        gameController.gameModel.setTimer();
+//        gameController.gameModel.setTimer();
 
         starNumber = 0;
 

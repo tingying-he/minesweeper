@@ -246,6 +246,7 @@ public class GameModel {
 
     public void loseGame(int starNum, int spentTime,int openedCellsNumber, String whyLoseGame) {
         openAll();
+        gameController.gameView.timer.cancel();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
         alert.setTitle("GAME OVER");
@@ -257,7 +258,7 @@ public class GameModel {
                 restart();
             }
         });
-        gameController.gameView.timer.cancel();
+
     }
 
     public void checkWin(int starNum,int spentTime) {

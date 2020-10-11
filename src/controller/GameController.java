@@ -20,8 +20,8 @@ public class GameController {
         this.M = M;
 
         gameModel.setTimer();
-
         gameView.init(N,M);
+
 
         //addEventHandler to buttons on gamePane
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
