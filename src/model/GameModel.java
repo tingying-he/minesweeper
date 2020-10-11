@@ -27,12 +27,11 @@ public class GameModel {
     public double starRate = 0.03;
     public double clockRate = 0.03;
 
-
     public GameModel(GameController gameController){
         this.gameController = gameController;
     }
 
-    public void NeighborMinesNumbers() {
+    public void putNeighborMinesNum() {
 
         for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
@@ -83,7 +82,7 @@ public class GameModel {
     }
 
     public void addEventHandler() {
-        for (int i = 0; i < gameController.N; i++)
+        for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
                 int a = i;
                 int b = j;
@@ -103,22 +102,19 @@ public class GameModel {
 
                 );
 
-                if (cellControllers[i][j].cellModel.isStar() && cellControllers[i][j].cellModel.isOpen()) {
-
-                }
             }
+        }
     }
 
     public void updateModel(int i, int j, boolean left) {
         if (left) {
             openCell(i, j);
             if (cellControllers[i][j].cellModel.isMine()) {
-                System.out.println("Game Over");
+//                System.out.println("Game Over");
                 loseGame("You click a mine");
             }
             if (cellControllers[i][j].cellModel.isStar()) {
-                System.out.println("Star!");
-//                ScaleTransition st = new ScaleTransition(Duration.millis(300), starIconImgView);
+//                System.out.println("Star!");
 
                 RotateTransition starRotateTransition =
                         new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
@@ -126,7 +122,6 @@ public class GameModel {
                 starRotateTransition.setToAngle(30);
                 starRotateTransition.setCycleCount(Timeline.INDEFINITE);
                 starRotateTransition.setAutoReverse(true);
-//                starRotateTransition.play();
 
                 cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
