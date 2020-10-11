@@ -32,8 +32,9 @@ import java.util.TimerTask;
  */
 public class GridController {
     private int N, M;
-    HBox gameBox = new HBox();
-    VBox settingBox = new VBox();
+    BorderPane gamePane= new BorderPane();
+    VBox statusPane = new VBox();
+    HBox btnPane = new HBox();
 
     GridPane gridPane = new GridPane();
 
@@ -85,19 +86,26 @@ public class GridController {
         this.M = M;
 
 
-        gameBox.getChildren().addAll(gridPane,settingBox);
-        gameBox.setAlignment(Pos.CENTER);
-        gameBox.setSpacing(20);
-        gameBox.setPadding(new Insets(20,20,20,20));
+//        gamePane.getChildren().addAll(gridPane,statusPane);
+//        gamePane.setAlignment(Pos.CENTER);
+//        gamePane.setSpacing(20);
+        gamePane.setCenter(gridPane);
+        gamePane.setRight(statusPane);
+        gamePane.setBottom(btnPane);
+
+        gamePane.setPadding(new Insets(20,30,20,30));
 
 
-        settingBox.getChildren().addAll(starPane,timePane,minePane,openedCellsPane,restartBtn,exitBtn);
-//        settingBox.setAlignment(Pos.CENTER);
+        statusPane.getChildren().addAll(starPane,timePane,minePane,openedCellsPane);
+//        statusPane.setAlignment(Pos.CENTER);
+        btnPane.getChildren().addAll(restartBtn,exitBtn);
+        btnPane.setAlignment(Pos.CENTER_RIGHT);
+        btnPane.setSpacing(20);
 
 
 
         //starPane
-        starPane.setStyle("-fx-background-color: YELLOW;");
+//        starPane.setStyle("-fx-background-color: YELLOW;");
 //        starPane.setPrefSize(32, 50);
         starIntroLabel.setLayoutX(80);
         starIntroLabel.setLayoutY(10);
@@ -114,7 +122,7 @@ public class GridController {
         starPane.getChildren().addAll(starIntroLabel,starNumberLabel,starIconImgView);
 
         //timePane
-        timePane.setStyle("-fx-background-color: Red;");
+//        timePane.setStyle("-fx-background-color: Red;");
 //        timePane.setPrefSize(32, 50);
         clockIntroLabel.setLayoutX(80);
         clockIntroLabel.setLayoutY(10);
@@ -131,7 +139,7 @@ public class GridController {
         timePane.getChildren().addAll(timeLabel,clockIconImgView,clockIntroLabel);
 
         //openedCellsPane
-        openedCellsPane.setStyle("-fx-background-color: LightBlue;");
+//        openedCellsPane.setStyle("-fx-background-color: LightBlue;");
 //        openedCellsPane.setPrefSize(32, 50);
         openedCellsIntroLabel.setLayoutX(80);
         openedCellsIntroLabel.setLayoutY(10);
@@ -151,7 +159,7 @@ public class GridController {
 
 
         //minePane
-        minePane.setStyle("-fx-background-color: LightGreen;");
+//        minePane.setStyle("-fx-background-color: LightGreen;");
 //        starPane.setPrefSize(32, 50);
         mineIntroLabel.setLayoutX(80);
         mineIntroLabel.setLayoutY(10);
