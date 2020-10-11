@@ -7,22 +7,18 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    int N = 16;
-    int M = 16;
-
-
+    private int N = 16;
+    private int M = 16;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        GridController gridController = new GridController(N,M);
         GameController gameController = new GameController(N,M);
 
-
-//        Parent root = FXMLLoader.load(getClass().getResource("../sample/sample.fxml"));
-        primaryStage.setTitle("Tingying He");
+        primaryStage.setTitle("Minesweeper_Tingying He");
         primaryStage.setScene(new Scene(gameController.gameView, 800, 700));
         primaryStage.show();
 
+        //stop application on window close
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);

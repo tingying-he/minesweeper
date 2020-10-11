@@ -18,7 +18,9 @@ public class GameController {
         this.M = M;
 
         gameModel.setTimer();
+
         gameView.init(N,M);
+
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             gameModel.restart();
         });
@@ -27,7 +29,6 @@ public class GameController {
             Platform.exit();
             System.exit(0);
         });
-
     }
 
 

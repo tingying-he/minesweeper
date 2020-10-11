@@ -28,7 +28,7 @@ public class CellView extends StackPane {
     public void init(CellController cellController) {
         this.cellController = cellController;
 
-        if(cellController.cellModel.open) {
+        if (cellController.cellModel.isOpen()) {
             if (cellController.cellModel.isMine()) {
                 Image img = new Image(CellModel.mineImgURL);
                 ImageView imgView = new ImageView(img);
@@ -51,8 +51,8 @@ public class CellView extends StackPane {
 
 
             } else if (cellController.cellModel.isClock()) {
-                ImageView clockImgView = new ImageView();
-                clockImgView = drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.clockImgURL);
+                ImageView clockImgView;
+                clockImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.clockImgURL);
                 this.getChildren().add(clockImgView);
                 ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(1000), clockImgView);
                 clockScaleTransition.setFromX(1); // original x
@@ -62,17 +62,16 @@ public class CellView extends StackPane {
                 clockScaleTransition.setCycleCount(Timeline.INDEFINITE);
                 clockScaleTransition.setAutoReverse(true);
                 clockScaleTransition.play();
+            } else {
+                this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.numberImgURL(cellController.cellModel.getNeighborMinesNum())));
             }
-            else{
-                this.getChildren().add(drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.numberImgURL(cellController.cellModel.getNumbers())));
-            }
-        }
-        else{
-            if(cellController.cellModel.flag){
-                this.getChildren().add(drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.flagImgURL));
-            }
-            else{
-                this.getChildren().add(drawImg(cellController.cellModel.cellSide,cellController.cellModel.cellSide,CellModel.blockImgURL));
+        } else {
+            if (cellController.cellModel.isFlag()) {
+                if (cellController.cellModel.isFlag()) {
+                    this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.flagImgURL));
+                } else {
+                    this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.coverImgURL));
+                }
             }
         }
     }
@@ -85,3 +84,4 @@ public class CellView extends StackPane {
         return imgView;
     }
 }
+

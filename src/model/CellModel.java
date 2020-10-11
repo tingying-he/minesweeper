@@ -6,9 +6,10 @@ import controller.CellController;
  * Created by Tingying He on 2020/10/7.
  */
 public class CellModel {
+    private CellController cellController;
 
     //ImgURL
-    public static final String blockImgURL = "img/block.png";
+    public static final String coverImgURL = "img/cover.png";
     public static final String flagImgURL = "img/flag.png";
     public static final String mineImgURL = "img/mine.png";
     public static final String starImgURL = "img/star.png";
@@ -17,18 +18,19 @@ public class CellModel {
         return "img/" + num + ".png";
     }
 
-    public int numbers;
-    public boolean mine;
+    //Data
+    public int neighborMinesNum;
+    private boolean mine;
     private boolean star;
     private boolean clock;
 
-    public boolean open;
-    public boolean flag;
+    private boolean open;
+    private boolean flag;
 
     public int cellSide = 32;
 
 
-    public CellController cellController;
+
     public CellModel(CellController cellController){
         this.cellController = cellController;
 
@@ -45,24 +47,9 @@ public class CellModel {
     }
 
 
-    public void setMine(boolean mine) {
-        this.mine = mine;
-    }
 
-    public void setStar(boolean star) {
-        this.star = star;
-    }
-
-    public void setClock(boolean clock) {
-        this.clock = clock;
-    }
-
-    public void setNumbers(int numbers){
-        this.numbers = numbers;
-    }
-
-    public int getNumbers() {
-        return numbers;
+    public int getNeighborMinesNum() {
+        return neighborMinesNum;
     }
 
     public boolean isMine(){
@@ -74,6 +61,8 @@ public class CellModel {
     public boolean isClock() {
         return clock;
     }
+    public boolean isOpen(){return open;}
+    public boolean isFlag(){return flag;}
 
 
     private void putMine(){
@@ -82,12 +71,12 @@ public class CellModel {
     }
 
     private void putStar(){
-        if(Math.random()<0.03 && mine == false)
+        if(Math.random()<0.03 && getNeighborMinesNum()==0)
             star = true;
     }
 
     private void putClock(){
-        if(Math.random()<0.03 && mine == false && star == false)
+        if(Math.random()<0.03 && getNeighborMinesNum()==0)
             clock = true;
     }
 

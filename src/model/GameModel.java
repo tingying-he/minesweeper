@@ -46,16 +46,16 @@ public class GameModel {
             for (int j = 0; j < gameController.M; j++) {
 
                 if (cellControllers[i][j].cellModel.isMine()) {
-                    cellControllers[i][j].cellModel.numbers = -1;
+                    cellControllers[i][j].cellModel.neighborMinesNum = -1;
                 }
 
-                cellControllers[i][j].cellModel.numbers = 0;
+                cellControllers[i][j].cellModel.neighborMinesNum = 0;
 
                 {
                     for (int ii = i - 1; ii <= i + 1; ii++)
                         for (int jj = j - 1; jj <= j + 1; jj++)
                             if (ii >= 0 && ii < gameController.N && jj >= 0 && jj < gameController.M && cellControllers[ii][jj].cellModel.isMine())
-                                cellControllers[i][j].cellModel.numbers++;
+                                cellControllers[i][j].cellModel.neighborMinesNum++;
                 }
             }
     }
@@ -71,7 +71,7 @@ public class GameModel {
                             public void handle(MouseEvent mouseEvent) {
                                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                                     updateModel(a, b, true);
-                                    System.out.println(cellControllers[a][b].cellModel.getNumbers());
+                                    System.out.println(cellControllers[a][b].cellModel.getNeighborMinesNum());
                                 }
                                 if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                                     updateModel(a, b, false);
@@ -81,7 +81,7 @@ public class GameModel {
 
                 );
 
-                if (cellControllers[i][j].cellModel.isStar() && cellControllers[i][j].cellModel.open) {
+                if (cellControllers[i][j].cellModel.isStar() && cellControllers[i][j].cellModel.isOpen()) {
 
                 }
             }
@@ -150,12 +150,13 @@ public class GameModel {
         gameController.gameView.openedCellsNumber ++;
         gameController.gameView.openedCellsNumberLabel.setText(gameController.gameView.openedCellsNumber +"/"+ gameController.N*gameController.M);
 
-        if (cellControllers[i][j].cellModel.getNumbers() == 0) {
+        if (cellControllers[i][j].cellModel.getNeighborMinesNum() == 0) {
             for (int ii = i - 1; ii <= i + 1; ii++)
                 for (int jj = j - 1; jj <= j + 1; jj++)
-                    if (ii >= 0 && ii < gameController.N && jj >= 0 && jj < gameController.M && !cellControllers[ii][jj].cellModel.open && !cellControllers[ii][jj].cellModel.isMine()) {
+                    if (ii >= 0 && ii < gameController.N && jj >= 0 && jj < gameController.M && !cellControllers[ii][jj].cellModel.isOpen() && !cellControllers[ii][jj].cellModel.isMine()) {
                         openCell(ii, jj);
                         cellControllers[ii][jj].cellView.init(cellControllers[ii][jj]);
+
 //            System.out.println(cellControllers[i][j].cellModel.getNumbers());
                     }
         }
@@ -232,11 +233,11 @@ public class GameModel {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
                 if (cellControllers[i][j].cellModel.isMine()) {
-                    if (!cellControllers[i][j].cellModel.flag) {
+                    if (!cellControllers[i][j].cellModel.isFlag()) {
                         return false;
                     }
                 } else {
-                    if (!cellControllers[i][j].cellModel.open) {
+                    if (!cellControllers[i][j].cellModel.isOpen()) {
                         return false;
                     }
                 }}
