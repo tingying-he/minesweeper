@@ -72,6 +72,11 @@ public class GridController {
     ImageView mineIconImgView = new ImageView(mineIconImg);
     public Label mineIntroLabel = new Label("Hidden Mines");
 
+    //tutorial
+
+    AnchorPane tutorialPane = new AnchorPane();
+    public Label tutorialLabel = new Label("drag STARS to collect, click CLOCKS to gain time");
+
 
 
     //restart
@@ -89,6 +94,7 @@ public class GridController {
 //        gamePane.getChildren().addAll(gridPane,statusPane);
 //        gamePane.setAlignment(Pos.CENTER);
 //        gamePane.setSpacing(20);
+        gamePane.setTop(tutorialPane);
         gamePane.setCenter(gridPane);
         gamePane.setRight(statusPane);
         gamePane.setBottom(btnPane);
@@ -174,6 +180,12 @@ public class GridController {
         mineIconImgView.setY(10);
 
         minePane.getChildren().addAll(mineIntroLabel,remainMinesLabel, mineIconImgView);
+
+
+        //tutorial
+        tutorialLabel.setLayoutX(10);
+        tutorialLabel.setLayoutY(10);
+        tutorialPane.getChildren().addAll(tutorialLabel);
 
 
         setTimer();
