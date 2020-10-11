@@ -25,13 +25,21 @@ public class GameModel {
 
     public CellController[][] cellControllers;
 
-    public double starRate = 0.03;
-    public double clockRate = 0.03;
+    public double starRate = 0.1;
+    public double clockRate = 0.1;
 
     public int remainTime = 60;
 
+    RotateTransition starRotateTransition;
+
     public GameModel(GameController gameController){
         this.gameController = gameController;
+
+        starRotateTransition = new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
+        starRotateTransition.setFromAngle(-30);
+        starRotateTransition.setToAngle(30);
+        starRotateTransition.setCycleCount(Timeline.INDEFINITE);
+        starRotateTransition.setAutoReverse(true);
     }
 
     public void putNeighborMinesNum() {
@@ -109,7 +117,9 @@ public class GameModel {
 
     public void updateModel(int i, int j, boolean left) {
         if (left) {
-            openCell(i, j);
+            if(!cellControllers[i][j].cellModel.isOpen()) {
+                openCell(i, j);
+            }
             if (cellControllers[i][j].cellModel.isMine()) {
 //                System.out.println("Game Over");
                 loseGame("You click a mine");
@@ -152,12 +162,6 @@ public class GameModel {
         if (cellControllers[i][j].cellModel.isStar()) {
 //                System.out.println("Star!");
 
-            RotateTransition starRotateTransition =
-                    new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
-            starRotateTransition.setFromAngle(-30);
-            starRotateTransition.setToAngle(30);
-            starRotateTransition.setCycleCount(Timeline.INDEFINITE);
-            starRotateTransition.setAutoReverse(true);
 
             cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {

@@ -28,7 +28,7 @@ public class CellModel {
     private boolean flag;
 
     public int cellSide = 32;
-    private double mineRate = 0.15;
+    private double mineRate = 0.12;
 
 
 
@@ -46,8 +46,6 @@ public class CellModel {
 //        putStar();
 //        putClock();
     }
-
-
 
     public int getNeighborMinesNum() {
         return neighborMinesNum;

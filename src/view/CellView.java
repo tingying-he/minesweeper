@@ -30,19 +30,23 @@ public class CellView extends StackPane {
 
         if (cellController.cellModel.isOpen()) {
             if (cellController.cellModel.isMine()) {
-                Image img = new Image(CellModel.mineImgURL);
-                ImageView imgView = new ImageView(img);
-                imgView.setFitHeight(cellController.cellModel.cellSide);
-                imgView.setFitWidth(cellController.cellModel.cellSide);
-                this.getChildren().add(imgView);
+//                Image img = new Image(CellModel.mineImgURL);
+//                ImageView imgView = new ImageView(img);
+//                imgView.setFitHeight(cellController.cellModel.cellSide);
+//                imgView.setFitWidth(cellController.cellModel.cellSide);
+//                this.getChildren().add(imgView);
+                this.getChildren().add(drawImg(
+                        cellController.cellModel.cellSide,
+                        cellController.cellModel.cellSide,
+                        CellModel.mineImgURL)
+                );
             } else if (cellController.cellModel.isStar()) {
-                Image img = new Image(CellModel.starImgURL);
-                ImageView imgView = new ImageView(img);
-                imgView.setFitHeight(cellController.cellModel.cellSide);
-                imgView.setFitWidth(cellController.cellModel.cellSide);
-                this.getChildren().add(imgView);
+                ImageView starImgView;
+                starImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.starImgURL);
+                this.getChildren().add(starImgView);
+
                 RotateTransition starRotateTransition =
-                        new RotateTransition(Duration.millis(3000), imgView);
+                        new RotateTransition(Duration.millis(3000), starImgView);
                 starRotateTransition.setFromAngle(-30);
                 starRotateTransition.setToAngle(30);
                 starRotateTransition.setCycleCount(Timeline.INDEFINITE);
