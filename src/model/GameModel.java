@@ -35,7 +35,7 @@ public class GameModel {
     public void createCellsGrid() {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
-                cellControllers[i][j] = new CellController(i, j);
+                cellControllers[i][j] = new CellController();
                 gameController.gameView.gridPane.add(cellControllers[i][j].cellView, i, j, 1, 1);
             }
     }
@@ -111,7 +111,7 @@ public class GameModel {
                         System.out.println("Drag detected");
                         starRotateTransition.play();
                         cellControllers[i][j].cellModel.moveStar();
-                        cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
+                        cellControllers[i][j].cellView.init(cellControllers[i][j]);
                         gameController.gameView.starNumber++;
                         gameController.gameView.starNumberLabel.setText(Integer.toString(gameController.gameView.starNumber));
 
@@ -140,7 +140,7 @@ public class GameModel {
             gameController.gameView.remainMinesLabel.setText(gameController.gameView.remainMines+"/"+gameController.gameView.minesTotalNumber);
         }
         winGame();
-        cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
+        cellControllers[i][j].cellView.init(cellControllers[i][j]);
     }
 
     //Flood-fill
@@ -155,7 +155,7 @@ public class GameModel {
                 for (int jj = j - 1; jj <= j + 1; jj++)
                     if (ii >= 0 && ii < gameController.N && jj >= 0 && jj < gameController.M && !cellControllers[ii][jj].cellModel.open && !cellControllers[ii][jj].cellModel.isMine()) {
                         openCell(ii, jj);
-                        cellControllers[ii][jj].cellView.init(cellControllers[ii][jj].cellModel);
+                        cellControllers[ii][jj].cellView.init(cellControllers[ii][jj]);
 //            System.out.println(cellControllers[i][j].cellModel.getNumbers());
                     }
         }
@@ -198,7 +198,7 @@ public class GameModel {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
                 cellControllers[i][j].cellModel.setOpen();
-                cellControllers[i][j].cellView.init(cellControllers[i][j].cellModel);
+                cellControllers[i][j].cellView.init(cellControllers[i][j]);
             }
     }
 

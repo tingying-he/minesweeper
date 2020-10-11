@@ -12,14 +12,11 @@ import view.CellView;
  */
 public class CellController{
 
-    public int x,y;
-    public CellController(int x, int y ){
-        this.x = x;
-        this.y = y;
+    public CellController(){
     }
 
-    public CellModel cellModel = new CellModel(x, y);
-    public CellView cellView = new CellView(cellModel);
+    public CellModel cellModel = new CellModel(this);
+    public CellView cellView = new CellView(this);
 
 
 }

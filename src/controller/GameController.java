@@ -20,7 +20,6 @@ public class GameController {
         gameModel.setTimer();
         gameView.init(N,M);
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
-//            init(N,M);
             gameModel.restart();
         });
 

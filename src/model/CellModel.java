@@ -1,5 +1,7 @@
 package model;
 
+import controller.CellController;
+
 /**
  * Created by Tingying He on 2020/10/7.
  */
@@ -15,7 +17,6 @@ public class CellModel {
         return "img/" + num + ".png";
     }
 
-    public int x,y;
     public int numbers;
     public boolean mine;
     private boolean star;
@@ -27,10 +28,10 @@ public class CellModel {
     public int cellSide = 32;
 
 
-    public CellModel(int x, int y){
-        this.x = x;
-        this.y = y;
-//        this.gridModel = gridModel;
+    public CellController cellController;
+    public CellModel(CellController cellController){
+        this.cellController = cellController;
+
         mine = false;
         star = false;
         clock = false;

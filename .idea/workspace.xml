@@ -20,13 +20,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controller/GameController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/GameModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/GridController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/GridController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/controller/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/controller/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/controller/GridController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/controller/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/controller/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/hellodraganddrop/HelloDragAndDrop.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/img/编组.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/model/GridModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/view/GridView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HelloDragAndDrop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CellController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CellController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/GridController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/GridView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/GridView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/CellModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/CellModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/GridModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/CellView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/CellView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/GridView.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +278,7 @@
       <workItem from="1602229909964" duration="10930000" />
       <workItem from="1602323095731" duration="3446000" />
       <workItem from="1602331783442" duration="939000" />
-      <workItem from="1602334155648" duration="21911000" />
+      <workItem from="1602334155648" duration="22961000" />
     </task>
     <servers />
   </component>
@@ -298,29 +314,33 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="974" y="238" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1602235414973" />
+    <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602416778749">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1602416778749" />
     <state x="781" y="173" key="#com.intellij.unscramble.UnscrambleDialog" timestamp="1602075717163">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="781" y="173" key="#com.intellij.unscramble.UnscrambleDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1602075717163" />
-    <state width="1638" height="295" key="GridCell.Tab.0.bottom" timestamp="1602414355039">
+    <state width="1638" height="295" key="GridCell.Tab.0.bottom" timestamp="1602417274640">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1602414355039" />
+    <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1602417274640" />
     <state width="1638" height="295" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1602146643373" />
-    <state width="1638" height="295" key="GridCell.Tab.0.center" timestamp="1602414355038">
+    <state width="1638" height="295" key="GridCell.Tab.0.center" timestamp="1602417274639">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1602414355038" />
+    <state width="1638" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1602417274639" />
     <state width="1638" height="295" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1602146643372" />
-    <state width="1638" height="295" key="GridCell.Tab.0.left" timestamp="1602414355037">
+    <state width="1638" height="295" key="GridCell.Tab.0.left" timestamp="1602417274638">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1602414355037" />
+    <state width="1638" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1602417274638" />
     <state width="1638" height="295" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1602146643372" />
-    <state width="1638" height="295" key="GridCell.Tab.0.right" timestamp="1602414355038">
+    <state width="1638" height="295" key="GridCell.Tab.0.right" timestamp="1602417274639">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1602414355038" />
+    <state width="1638" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1602417274639" />
     <state width="1638" height="295" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1602146643373" />
     <state x="328" y="106" key="SettingsEditor" timestamp="1601912113147">
       <screen x="0" y="0" width="1680" height="1050" />
