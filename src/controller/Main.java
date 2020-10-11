@@ -22,12 +22,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        GridController gridController = new GridController(N,M);
+//        GridController gridController = new GridController(N,M);
+        GameController gameController = new GameController(N,M);
 
 
 //        Parent root = FXMLLoader.load(getClass().getResource("../sample/sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(gridController.gamePane, 800, 700));
+        primaryStage.setScene(new Scene(gameController.gameView, 800, 700));
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(e -> {
