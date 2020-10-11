@@ -113,37 +113,7 @@ public class GameModel {
 //                System.out.println("Game Over");
                 loseGame("You click a mine");
             }
-            if (cellControllers[i][j].cellModel.isStar()) {
-//                System.out.println("Star!");
 
-                RotateTransition starRotateTransition =
-                        new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
-                starRotateTransition.setFromAngle(-30);
-                starRotateTransition.setToAngle(30);
-                starRotateTransition.setCycleCount(Timeline.INDEFINITE);
-                starRotateTransition.setAutoReverse(true);
-
-                cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
-                    public void handle(MouseEvent event) {
-                        System.out.println("Drag detected");
-                        starRotateTransition.play();
-                        cellControllers[i][j].cellModel.removeStar();
-                        cellControllers[i][j].cellView.init(cellControllers[i][j]);
-                        gameController.gameView.starNumber++;
-                        gameController.gameView.starNumberLabel.setText(Integer.toString(gameController.gameView.starNumber));
-
-                    }
-                });
-
-
-                cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        System.out.println("stop");
-                        starRotateTransition.stop();
-                    }
-                });
-            }
             if (cellControllers[i][j].cellModel.isClock()) {
                 gameController.gameView.timer.cancel();
                 gameController.gameView.remainTime = gameController.gameView.remainTime + 30;
@@ -166,7 +136,37 @@ public class GameModel {
 //        System.out.println(cellControllers[i][j].cellModel.getNumbers());
         gameController.gameView.openedCellsNumber ++;
         gameController.gameView.openedCellsNumberLabel.setText(gameController.gameView.openedCellsNumber +"/"+ gameController.N*gameController.M);
+        if (cellControllers[i][j].cellModel.isStar()) {
+//                System.out.println("Star!");
 
+            RotateTransition starRotateTransition =
+                    new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
+            starRotateTransition.setFromAngle(-30);
+            starRotateTransition.setToAngle(30);
+            starRotateTransition.setCycleCount(Timeline.INDEFINITE);
+            starRotateTransition.setAutoReverse(true);
+
+            cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    System.out.println("Drag detected");
+                    starRotateTransition.play();
+                    cellControllers[i][j].cellModel.removeStar();
+                    cellControllers[i][j].cellView.init(cellControllers[i][j]);
+                    gameController.gameView.starNumber++;
+                    gameController.gameView.starNumberLabel.setText(Integer.toString(gameController.gameView.starNumber));
+
+                }
+            });
+
+
+            cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    System.out.println("stop");
+                    starRotateTransition.stop();
+                }
+            });
+        }
         if (cellControllers[i][j].cellModel.getNeighborMinesNum() == 0) {
             for (int ii = i - 1; ii <= i + 1; ii++)
                 for (int jj = j - 1; jj <= j + 1; jj++)
