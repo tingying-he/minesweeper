@@ -75,7 +75,7 @@ public class GridController {
 
     //restart
     public Button restartBtn = new Button("New Game");
-
+    public Button exitBtn = new Button("Exit");
 
 
     public CellController[][] cellControllers;
@@ -91,7 +91,7 @@ public class GridController {
         gameBox.setPadding(new Insets(20,20,20,20));
 
 
-        settingBox.getChildren().addAll(starPane,timePane,minePane,openedCellsPane,restartBtn);
+        settingBox.getChildren().addAll(starPane,timePane,minePane,openedCellsPane,restartBtn,exitBtn);
 //        settingBox.setAlignment(Pos.CENTER);
 
 
@@ -174,6 +174,15 @@ public class GridController {
 //            init(N,M);
             restart();
         });
+
+        exitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+            Platform.exit();
+            System.exit(0);
+        });
+
+
+
+
 
 
 

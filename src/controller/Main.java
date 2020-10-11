@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +29,11 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(gridController.gameBox, 1000, 1000));
         primaryStage.show();
+        
+        primaryStage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {
