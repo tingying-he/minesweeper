@@ -40,9 +40,9 @@ public class GameView extends BorderPane {
     AnchorPane openedCellsPane = new AnchorPane();
     public int openedCellsNumber = 0;
     public Label openedCellsNumberLabel = new Label();
-    Image openedCellsIconImg = new Image("/img/1.png");
+    Image openedCellsIconImg = new Image("img/1.png");
     ImageView openedCellsImgView = new ImageView(openedCellsIconImg);
-    public Label openedCellsIntroLabel = new Label("Opened Cells");
+    public Label openedCellsIntroLabel = new Label("Opened/All Cells");
 
     //star
     AnchorPane starPane = new AnchorPane();
@@ -59,12 +59,12 @@ public class GameView extends BorderPane {
     public Label remainMinesLabel = new Label();
     Image mineIconImg = new Image(CellModel.flagImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
-    public Label mineIntroLabel = new Label("Hidden Mines");
+    public Label mineIntroLabel = new Label("Flagged/All Mines");
 
     //tutorial
 
     //    AnchorPane tutorialPane = new AnchorPane();
-    Image tutorialImg = new Image("/img/tutorial.png");
+    Image tutorialImg = new Image("img/tutorial.png");
     ImageView tutorialImgView = new ImageView(tutorialImg);
 
     //Title
@@ -95,7 +95,7 @@ public class GameView extends BorderPane {
         btnPane.getChildren().addAll(restartBtn,exitBtn);
         btnPane.setAlignment(Pos.CENTER);
         btnPane.setSpacing(10);
-        btnPane.setPadding(new Insets(100,0,0,0));
+        btnPane.setPadding(new Insets(160,0,0,0));
 
 
         restartBtn.setPrefSize(150,35);

@@ -26,6 +26,7 @@ public class CellModel {
 
     private boolean open;
     private boolean flag;
+    public boolean hasPutStar = false;
 
     public int cellSide = 32;
     private double mineRate = 0.12;

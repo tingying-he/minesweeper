@@ -159,6 +159,7 @@ public class GameModel {
 //        System.out.println(cellControllers[i][j].cellModel.getNumbers());
         gameController.gameView.openedCellsNumber ++;
         gameController.gameView.openedCellsNumberLabel.setText(gameController.gameView.openedCellsNumber +"/"+ gameController.N*gameController.M);
+
         if (cellControllers[i][j].cellModel.isStar()) {
 //                System.out.println("Star!");
 

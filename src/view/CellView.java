@@ -41,28 +41,32 @@ public class CellView extends StackPane {
                         CellModel.mineImgURL)
                 );
             } else if (cellController.cellModel.isStar()) {
-                ImageView starImgView;
-                starImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.starImgURL);
-                this.getChildren().add(starImgView);
+                if(!cellController.cellModel.hasPutStar) {
+                    ImageView starImgView;
+                    starImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.starImgURL);
+                    this.getChildren().add(starImgView);
 
-                RotateTransition starRotateTransition =
-                        new RotateTransition(Duration.millis(3000), starImgView);
-                starRotateTransition.setFromAngle(-30);
-                starRotateTransition.setToAngle(30);
-                starRotateTransition.setCycleCount(Timeline.INDEFINITE);
-                starRotateTransition.setAutoReverse(true);
-                starRotateTransition.play();
-
+                    RotateTransition starRotateTransition =
+                            new RotateTransition(Duration.millis(3000), starImgView);
+                    starRotateTransition.setFromAngle(-30);
+                    starRotateTransition.setToAngle(30);
+                    starRotateTransition.setCycleCount(Timeline.INDEFINITE);
+                    starRotateTransition.setAutoReverse(true);
+                    starRotateTransition.play();
+                    cellController.cellModel.hasPutStar = true;
+                }
 
             } else if (cellController.cellModel.isClock()) {
                 ImageView clockImgView;
                 clockImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.clockImgURL);
                 this.getChildren().add(clockImgView);
-                ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(1000), clockImgView);
-                clockScaleTransition.setFromX(1); // original x
-                clockScaleTransition.setFromY(1); // original y
-                clockScaleTransition.setToX(0.8); // final x is 25 times the original
-                clockScaleTransition.setToY(0.8); // final y is 25 times the original
+
+                ScaleTransition clockScaleTransition =
+                        new ScaleTransition(Duration.millis(1000), clockImgView);
+                clockScaleTransition.setFromX(1);
+                clockScaleTransition.setFromY(1);
+                clockScaleTransition.setToX(0.8);
+                clockScaleTransition.setToY(0.8);
                 clockScaleTransition.setCycleCount(Timeline.INDEFINITE);
                 clockScaleTransition.setAutoReverse(true);
                 clockScaleTransition.play();
