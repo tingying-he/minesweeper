@@ -28,7 +28,10 @@ public class GameModel {
     public double starRate = 0.1;
     public double clockRate = 0.1;
 
-    public int remainTime = 60;
+
+    public int spentTime = 0;
+    public int totalTime =60;
+    public int remainTime = totalTime;
 
     RotateTransition starRotateTransition;
 
@@ -122,12 +125,12 @@ public class GameModel {
             }
             if (cellControllers[i][j].cellModel.isMine()) {
 //                System.out.println("Game Over");
-                loseGame("You click a mine");
+                loseGame(gameController.gameView.starNumber, spentTime,gameController.gameView.openedCellsNumber,"You clicked on a mine :(");
             }
 
             if (cellControllers[i][j].cellModel.isClock()) {
 //                gameController.gameView.timer.cancel();
-                gameController.gameModel.remainTime = gameController.gameModel.remainTime + 30;
+                gameController.gameModel.remainTime = gameController.gameModel.remainTime + 10;
 //                setTimer();
                 cellControllers[i][j].cellModel.removeClock();
 
@@ -149,7 +152,7 @@ public class GameModel {
             gameController.gameView.remainMines --;
             gameController.gameView.remainMinesLabel.setText(gameController.gameView.remainMines+"/"+gameController.gameView.minesTotalNumber);
         }
-        checkWin();
+        checkWin(gameController.gameView.starNumber, spentTime);
         cellControllers[i][j].cellView.init(cellControllers[i][j]);
     }
 
@@ -214,13 +217,14 @@ public class GameModel {
                             gameController.gameView.timeLabel.setText(gameController.gameModel.remainTime + "s");
                         }
                     });
+                    gameController.gameModel.spentTime++;
                     gameController.gameModel.remainTime--;
                     if (gameController.gameModel.remainTime == 0) {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
                                 System.out.println("Time up");
-                                loseGame("Time up");
+                                loseGame(gameController.gameView.starNumber, spentTime,gameController.gameView.openedCellsNumber,"Time is up!");
                             }
                         });
                     }
@@ -240,13 +244,13 @@ public class GameModel {
             }
     }
 
-    public void loseGame(String whyLoseGame) {
+    public void loseGame(int starNum, int spentTime,int openedCellsNumber, String whyLoseGame) {
         openAll();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
-        alert.setTitle("Lose Game");
-        alert.setHeaderText("Lose Game");
-        alert.setContentText(whyLoseGame);
+        alert.setTitle("GAME OVER");
+        alert.setHeaderText("☆ Your Star(s): "+ starNum +" ☆");
+        alert.setContentText(whyLoseGame+"\n\nTime spent in game: "+ spentTime + "s \nNumber of cells opened: "+openedCellsNumber);
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 setTimer();
@@ -256,12 +260,12 @@ public class GameModel {
         gameController.gameView.timer.cancel();
     }
 
-    public void checkWin() {
+    public void checkWin(int starNum,int spentTime) {
         if (winGame()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Win Game");
-            alert.setHeaderText("Win Game");
-            alert.setContentText("Win Game");
+            alert.setTitle("YOU WIN!");
+            alert.setHeaderText("☆ Your Star(s): "+ starNum +" ☆");
+            alert.setContentText("Congrats!\nTime spent in game: "+ spentTime + "s");
             alert.show();
         }
     }
