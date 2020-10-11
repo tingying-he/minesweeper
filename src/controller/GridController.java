@@ -52,7 +52,7 @@ public class GridController {
     public Label openedCellsNumberLabel = new Label();
     Image openedCellsIconImg = new Image(CellModel.blockImgURL);
     ImageView openedCellsImgView = new ImageView(openedCellsIconImg);
-//    public Label openedCellsIntroLabel = new Label("click to add remain time");
+    public Label openedCellsIntroLabel = new Label("Opened Cells");
 
     //star
     AnchorPane starPane = new AnchorPane();
@@ -74,7 +74,8 @@ public class GridController {
 
 
     //restart
-    public Button restartBtn = new Button("restart");
+    public Button restartBtn = new Button("New Game");
+
 
 
     public CellController[][] cellControllers;
@@ -90,7 +91,7 @@ public class GridController {
         gameBox.setPadding(new Insets(20,20,20,20));
 
 
-        settingBox.getChildren().addAll(starPane,timePane,minePane,restartBtn);
+        settingBox.getChildren().addAll(starPane,timePane,minePane,openedCellsPane,restartBtn);
 //        settingBox.setAlignment(Pos.CENTER);
 
 
@@ -131,20 +132,20 @@ public class GridController {
 
         //openedCellsPane
         openedCellsPane.setStyle("-fx-background-color: LightBlue;");
-        openedCellsPane.setPrefSize(32, 50);
-//        clockIntroLabel.setLayoutX(10);
-//        clockIntroLabel.setLayoutY(50);
+//        openedCellsPane.setPrefSize(32, 50);
+        openedCellsIntroLabel.setLayoutX(80);
+        openedCellsIntroLabel.setLayoutY(10);
         //openedCellsPane text
-        openedCellsNumberLabel.setFont(new Font("Arial", 12));
-        openedCellsNumberLabel.setLayoutX(60);
-        openedCellsNumberLabel.setLayoutY(10);
+        openedCellsNumberLabel.setFont(new Font("Arial", 30));
+        openedCellsNumberLabel.setLayoutX(80);
+        openedCellsNumberLabel.setLayoutY(30);
 //        openedCellsPane animation
-        openedCellsImgView.setFitHeight(30);
-        openedCellsImgView.setFitWidth(30);
+        openedCellsImgView.setFitHeight(50);
+        openedCellsImgView.setFitWidth(50);
         openedCellsImgView.setX(10);
         openedCellsImgView.setY(10);
 
-        openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumberLabel);
+        openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumberLabel,openedCellsIntroLabel);
 
         //remain mines
 
@@ -200,7 +201,7 @@ public class GridController {
 
         openedCellsNumber = 0;
 
-        openedCellsNumberLabel.setText("number of opened cells:"+ openedCellsNumber);
+        openedCellsNumberLabel.setText( openedCellsNumber +"/"+ N*M);
 
 
         createCellsGrid();
@@ -338,7 +339,7 @@ public class GridController {
         cellControllers[i][j].cellModel.setOpen();
 //        System.out.println(cellControllers[i][j].cellModel.getNumbers());
         openedCellsNumber ++;
-        openedCellsNumberLabel.setText(Integer.toString(openedCellsNumber));
+        openedCellsNumberLabel.setText(openedCellsNumber +"/"+ N*M);
 
         if (cellControllers[i][j].cellModel.getNumbers() == 0) {
             for (int ii = i - 1; ii <= i + 1; ii++)
