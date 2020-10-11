@@ -21,10 +21,10 @@ public class GameController {
 
         gameView.init(N,M);
 
+        //addEventHandler to buttons on gamePane
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             gameModel.restart();
         });
-
         gameView.exitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             Platform.exit();
             System.exit(0);

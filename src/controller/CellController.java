@@ -11,6 +11,7 @@ public class CellController{
 
     public CellController(){
     }
+
     public CellModel cellModel = new CellModel(this);
     public CellView cellView = new CellView(this);
 

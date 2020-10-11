@@ -60,6 +60,32 @@ public class GameModel {
             }
     }
 
+    public void putStars(){
+        for (int i = 0; i < gameController.N; i++)
+            for (int j = 0; j < gameController.M; j++) {
+                if(cellControllers[i][j].cellModel.neighborMinesNum == 0 &&
+                        !cellControllers[i][j].cellModel.isMine() &&
+                        !cellControllers[i][j].cellModel.isClock() &&
+                        Math.random()<0.03
+                ){
+                    cellControllers[i][j].cellModel.setStar(true);
+                }
+            }
+    }
+
+    public void putClocks(){
+        for (int i = 0; i < gameController.N; i++)
+            for (int j = 0; j < gameController.M; j++) {
+                if(cellControllers[i][j].cellModel.neighborMinesNum == 0 &&
+                        !cellControllers[i][j].cellModel.isMine() &&
+                        !cellControllers[i][j].cellModel.isStar() &&
+                        Math.random()<0.03
+                ){
+                    cellControllers[i][j].cellModel.setClock(true);
+                }
+            }
+    }
+
     public void addEventHandler() {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
@@ -110,7 +136,7 @@ public class GameModel {
                     public void handle(MouseEvent event) {
                         System.out.println("Drag detected");
                         starRotateTransition.play();
-                        cellControllers[i][j].cellModel.moveStar();
+                        cellControllers[i][j].cellModel.removeStar();
                         cellControllers[i][j].cellView.init(cellControllers[i][j]);
                         gameController.gameView.starNumber++;
                         gameController.gameView.starNumberLabel.setText(Integer.toString(gameController.gameView.starNumber));
@@ -131,7 +157,7 @@ public class GameModel {
                 gameController.gameView.timer.cancel();
                 gameController.gameView.remainTime = gameController.gameView.remainTime + 30;
                 setTimer();
-                cellControllers[i][j].cellModel.moveClock();
+                cellControllers[i][j].cellModel.removeClock();
 
             }
         } else {

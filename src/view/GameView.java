@@ -215,6 +215,8 @@ public class GameView extends BorderPane {
 
         gameController.gameModel.createCellsGrid();
         gameController.gameModel.NeighborMinesNumbers();
+        gameController.gameModel.putStars();
+        gameController.gameModel.putClocks();
         gameController.gameModel.addEventHandler();
 
         minesTotalNumber = 0;

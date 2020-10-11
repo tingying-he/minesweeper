@@ -42,8 +42,8 @@ public class CellModel {
         flag = false;
 
         putMine();
-        putStar();
-        putClock();
+//        putStar();
+//        putClock();
     }
 
 
@@ -64,36 +64,34 @@ public class CellModel {
     public boolean isOpen(){return open;}
     public boolean isFlag(){return flag;}
 
-
     private void putMine(){
         if(Math.random()<0.15)
             mine = true;
     }
 
-    private void putStar(){
-        if(Math.random()<0.03 && getNeighborMinesNum()==0)
-            star = true;
-    }
-
-    private void putClock(){
-        if(Math.random()<0.03 && getNeighborMinesNum()==0)
-            clock = true;
-    }
+//    private void putStar(){
+//        if(Math.random()<0.03 && getNeighborMinesNum()==0)
+//            star = true;
+//    }
+//
+//    private void putClock(){
+//        if(Math.random()<0.03 && getNeighborMinesNum()==0)
+//            clock = true;
+//    }
 
     public void setOpen(){
         open = true;
     }
-
     public void setFlag(){
         flag = !flag;
     }
+    public void setStar(boolean star){this.star = star;}
+    public void setClock(boolean clock){this.clock = clock;}
 
-    public void moveClock(){
+    public void removeClock(){
         clock = false;
     }
-
-    public void moveStar(){
+    public void removeStar(){
         star = false;
     }
-
 }
