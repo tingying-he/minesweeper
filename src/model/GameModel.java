@@ -126,9 +126,9 @@ public class GameModel {
             }
 
             if (cellControllers[i][j].cellModel.isClock()) {
-                gameController.gameView.timer.cancel();
+//                gameController.gameView.timer.cancel();
                 gameController.gameModel.remainTime = gameController.gameModel.remainTime + 30;
-                setTimer();
+//                setTimer();
                 cellControllers[i][j].cellModel.removeClock();
 
                 ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(300), gameController.gameView.clockIconImgView);
