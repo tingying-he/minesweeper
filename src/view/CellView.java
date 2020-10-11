@@ -66,13 +66,12 @@ public class CellView extends StackPane {
                 this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.numberImgURL(cellController.cellModel.getNeighborMinesNum())));
             }
         } else {
-            if (cellController.cellModel.isFlag()) {
                 if (cellController.cellModel.isFlag()) {
                     this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.flagImgURL));
                 } else {
                     this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.coverImgURL));
                 }
-            }
+
         }
     }
 
