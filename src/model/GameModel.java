@@ -20,25 +20,14 @@ import java.util.TimerTask;
  * Created by Tingying He on 2020/10/11.
  */
 public class GameModel {
+    private GameController gameController;
 
     public CellController[][] cellControllers;
 
-    GameController gameController;
-
     public GameModel(GameController gameController){
         this.gameController = gameController;
-
-
-
     }
 
-    public void createCellsGrid() {
-        for (int i = 0; i < gameController.N; i++)
-            for (int j = 0; j < gameController.M; j++) {
-                cellControllers[i][j] = new CellController();
-                gameController.gameView.gridPane.add(cellControllers[i][j].cellView, i, j, 1, 1);
-            }
-    }
 
     public void NeighborMinesNumbers() {
 

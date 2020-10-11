@@ -213,7 +213,7 @@ public class GameView extends BorderPane {
         openedCellsNumberLabel.setText( openedCellsNumber +"/"+ N*M);
 
 
-        gameController.gameModel.createCellsGrid();
+        createCellsGrid();
         gameController.gameModel.NeighborMinesNumbers();
         gameController.gameModel.putStars();
         gameController.gameModel.putClocks();
@@ -229,5 +229,12 @@ public class GameView extends BorderPane {
         }
         remainMines = minesTotalNumber;
         remainMinesLabel.setText(remainMines+"/"+minesTotalNumber);
+    }
+    public void createCellsGrid() {
+        for (int i = 0; i < gameController.N; i++)
+            for (int j = 0; j < gameController.M; j++) {
+                gameController.gameModel.cellControllers[i][j] = new CellController();
+                gameController.gameView.gridPane.add(gameController.gameModel.cellControllers[i][j].cellView, i, j, 1, 1);
+            }
     }
 }
