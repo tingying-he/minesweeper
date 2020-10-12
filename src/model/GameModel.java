@@ -178,7 +178,9 @@ public class GameModel {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
                 cellControllers[i][j].cellModel.setOpen();
-                cellControllers[i][j].cellView.init(cellControllers[i][j]);
+                cellControllers[i][j].init();
             }
     }
+
+
 }

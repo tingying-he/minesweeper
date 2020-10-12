@@ -98,11 +98,10 @@ public class GameController {
                 gameModel.cellControllers[i][j].cellModel.removeClock();
 
                 ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(300), gameView.clockIconImgView);
-                clockScaleTransition.setFromX(0.8); // original x
-                clockScaleTransition.setFromY(0.8); // original y
-                clockScaleTransition.setToX(1); // final x is 25 times the original
-                clockScaleTransition.setToY(1); // final y is 25 times the original
-//                clockScaleTransition.setCycleCount(Timeline.INDEFINITE);
+                clockScaleTransition.setFromX(0.8);
+                clockScaleTransition.setFromY(0.8);
+                clockScaleTransition.setToX(1);
+                clockScaleTransition.setToY(1);
                 clockScaleTransition.setAutoReverse(true);
                 clockScaleTransition.play();
 
@@ -116,24 +115,22 @@ public class GameController {
             gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNumber);
         }
         gameModel.checkWin(gameModel.starNumber, gameModel.spentTime);
-        gameModel.cellControllers[i][j].cellView.init(gameModel.cellControllers[i][j]);
+        gameModel.cellControllers[i][j].init();
     }
 
     //Flood-fill
     public void openCell(int i, int j) {
         gameModel.cellControllers[i][j].cellModel.setOpen();
-//        System.out.println(cellControllers[i][j].cellModel.getNumbers());
         gameModel.openedCellsNum ++;
         gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
 
         if (gameModel.cellControllers[i][j].cellModel.isStar()) {
             gameModel.cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-//                    System.out.println("Drag detected");
                     gameView.starRotateTransition.play();
 
                     gameModel.cellControllers[i][j].cellModel.removeStar();
-                    gameModel.cellControllers[i][j].cellView.init(gameModel.cellControllers[i][j]);
+                    gameModel.cellControllers[i][j].init();
 
                     gameModel.starNumber++;
                     gameView.starNumberLabel.setText(Integer.toString(gameModel.starNumber));
@@ -144,7 +141,6 @@ public class GameController {
             gameModel.cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-//                    System.out.println("stop");
                     gameView.starRotateTransition.stop();
                 }
             });
@@ -156,7 +152,7 @@ public class GameController {
                             !gameModel.cellControllers[ii][jj].cellModel.isOpen() &&
                             !gameModel.cellControllers[ii][jj].cellModel.isMine()) {
                         openCell(ii, jj);
-                        gameModel.cellControllers[ii][jj].cellView.init(gameModel.cellControllers[ii][jj]);
+                        gameModel.cellControllers[ii][jj].init();
                     }
                 }
             }
@@ -197,7 +193,5 @@ public class GameController {
         }
     }
     //Reference:https://stackoverflow.com/questions/34882640/java-count-down-timer-using-javafx
-
-
 
 }
