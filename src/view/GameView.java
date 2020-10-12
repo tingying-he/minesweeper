@@ -22,17 +22,16 @@ import java.util.Timer;
  * Created by Tingying He on 2020/10/11.
  */
 public class GameView extends BorderPane {
-//    BorderPane gamePane= new BorderPane();
-    VBox statusPane = new VBox();
-    VBox btnPane = new VBox();
+
+
+    private VBox statusPane = new VBox();
+    private VBox btnPane = new VBox();
     public GridPane gridPane = new GridPane();
 
     //time
-    AnchorPane timePane = new AnchorPane();
-    public Timer timer;
-    public Label timeLabel = new Label();
-
-    Image clockIconImg = new Image(CellModel.clockImgURL);
+    private AnchorPane timePane = new AnchorPane();
+    public Label remainTimeLabel = new Label();
+    private Image clockIconImg = new Image(CellModel.clockImgURL);
     public ImageView clockIconImgView = new ImageView(clockIconImg);
     public Label clockIntroLabel = new Label("Remaining Time");
 
@@ -132,16 +131,16 @@ public class GameView extends BorderPane {
         clockIntroLabel.setLayoutX(80);
         clockIntroLabel.setLayoutY(10);
         //timePane text
-        timeLabel.setFont(new Font("Arial", 30));
-        timeLabel.setLayoutX(80);
-        timeLabel.setLayoutY(30);
+        remainTimeLabel.setFont(new Font("Arial", 30));
+        remainTimeLabel.setLayoutX(80);
+        remainTimeLabel.setLayoutY(30);
         //timePane animation
         clockIconImgView.setFitHeight(50);
         clockIconImgView.setFitWidth(50);
         clockIconImgView.setX(10);
         clockIconImgView.setY(10);
 
-        timePane.getChildren().addAll(timeLabel,clockIconImgView,clockIntroLabel);
+        timePane.getChildren().addAll(remainTimeLabel,clockIconImgView,clockIntroLabel);
 
         //openedCellsPane
 //        openedCellsPane.setStyle("-fx-background-color: LightBlue;");

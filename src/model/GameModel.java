@@ -28,7 +28,7 @@ public class GameModel {
     public double starRate = 0.1;
     public double clockRate = 0.1;
 
-
+    public Timer timer;
     public int spentTime = 0;
     public int totalTime =60;
     public int remainTime = totalTime;
@@ -207,14 +207,14 @@ public class GameModel {
 
     public void setTimer() {
         try {
-            gameController.gameView.timer = new Timer();
-            gameController.gameView.timer.schedule(new TimerTask() {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            gameController.gameView.timeLabel.setText(gameController.gameModel.remainTime + "s");
+                            gameController.gameView.remainTimeLabel.setText(gameController.gameModel.remainTime + "s");
                         }
                     });
                     gameController.gameModel.spentTime++;
@@ -246,7 +246,7 @@ public class GameModel {
 
     public void loseGame(int starNum, int spentTime,int openedCellsNumber, String whyLoseGame) {
         openAll();
-        gameController.gameView.timer.cancel();
+        timer.cancel();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
         alert.setTitle("GAME OVER");

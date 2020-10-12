@@ -30,11 +30,6 @@ public class CellView extends StackPane {
 
         if (cellController.cellModel.isOpen()) {
             if (cellController.cellModel.isMine()) {
-//                Image img = new Image(CellModel.mineImgURL);
-//                ImageView imgView = new ImageView(img);
-//                imgView.setFitHeight(cellController.cellModel.cellSide);
-//                imgView.setFitWidth(cellController.cellModel.cellSide);
-//                this.getChildren().add(imgView);
                 this.getChildren().add(drawImg(
                         cellController.cellModel.cellSide,
                         cellController.cellModel.cellSide,
@@ -46,6 +41,7 @@ public class CellView extends StackPane {
                     starImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.starImgURL);
                     this.getChildren().add(starImgView);
 
+                    //rotate animation for stars in cells
                     RotateTransition starRotateTransition =
                             new RotateTransition(Duration.millis(3000), starImgView);
                     starRotateTransition.setFromAngle(-30);
@@ -58,9 +54,13 @@ public class CellView extends StackPane {
 
             } else if (cellController.cellModel.isClock()) {
                 ImageView clockImgView;
-                clockImgView = drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.clockImgURL);
+                clockImgView = drawImg(
+                        cellController.cellModel.cellSide,
+                        cellController.cellModel.cellSide,
+                        CellModel.clockImgURL);
                 this.getChildren().add(clockImgView);
 
+                //scale animation for stars in cells
                 ScaleTransition clockScaleTransition =
                         new ScaleTransition(Duration.millis(1000), clockImgView);
                 clockScaleTransition.setFromX(1);
@@ -70,14 +70,26 @@ public class CellView extends StackPane {
                 clockScaleTransition.setCycleCount(Timeline.INDEFINITE);
                 clockScaleTransition.setAutoReverse(true);
                 clockScaleTransition.play();
+
             } else {
-                this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.numberImgURL(cellController.cellModel.getNeighborMinesNum())));
+                this.getChildren().add(drawImg(
+                        cellController.cellModel.cellSide,
+                        cellController.cellModel.cellSide,
+                        CellModel.numberImgURL(cellController.cellModel.getNeighborMinesNum())));
             }
         } else {
+            //if the cell isn't opened
                 if (cellController.cellModel.isFlag()) {
-                    this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.flagImgURL));
+                    this.getChildren().add(drawImg(
+                            cellController.cellModel.cellSide,
+                            cellController.cellModel.cellSide,
+                            CellModel.flagImgURL));
                 } else {
-                    this.getChildren().add(drawImg(cellController.cellModel.cellSide, cellController.cellModel.cellSide, CellModel.coverImgURL));
+                    //if the cell isn't opened or flagged
+                    this.getChildren().add(drawImg(
+                            cellController.cellModel.cellSide,
+                            cellController.cellModel.cellSide,
+                            CellModel.coverImgURL));
                 }
 
         }
