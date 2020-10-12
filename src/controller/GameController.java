@@ -99,7 +99,7 @@ public class GameController {
             }
 
             if (gameModel.cellControllers[i][j].cellModel.isClock()) {
-                gameModel.remainTime = gameModel.remainTime + 10;
+                gameModel.remainTime = gameModel.remainTime + 15;
                 gameModel.cellControllers[i][j].cellModel.removeClock();
 
                 ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(300), gameView.clockIconImgView);
@@ -113,10 +113,13 @@ public class GameController {
 
             }
         } else {
+            if(gameModel.cellControllers[i][j].cellModel.isFlag()){
+                gameModel.remainMines ++;
+            }else{
+                gameModel.remainMines --;
+            }
             gameModel.cellControllers[i][j].cellModel.setFlag();
 
-
-            gameModel.remainMines --;
             gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNumber);
         }
         gameModel.checkWin(gameModel.starNumber, gameModel.spentTime);

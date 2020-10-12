@@ -25,8 +25,8 @@ public class GameModel {
 
     public CellController[][] cellControllers;
 
-    public double starRate = 0.1;
-    public double clockRate = 0.1;
+    public double starRate = 0.12;
+    public double clockRate = 0.12;
 
     //timer
     public Timer timer;
@@ -38,7 +38,7 @@ public class GameModel {
     public int starNumber = 0;
     public int minesTotalNumber = 0;
     public int remainMines = 0;
-
+//    public int flaggedMines = 0;
 
 
     public GameModel(GameController gameController){
@@ -131,10 +131,14 @@ public class GameModel {
         alert.setTitle("GAME OVER");
         alert.setHeaderText("☆ Your Star(s): "+ starNum +" ☆");
         alert.setContentText(whyLoseGame+"\n\nTime spent in game: "+ spentTime + "s \nNumber of cells you opened: "+openedCellsNumber);
+
+
         openAll();
+
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 gameController.setTimer();
+
                 gameController.init(gameController.N, gameController.M);//restart
             }
         });

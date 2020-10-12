@@ -70,7 +70,7 @@ public class CellModel {
     }
 
 //    private void putStar(){
-//        if(Math.random()<0.03 && getNeighborMinesNum()==0)
+//        if(Math.random()<0.03 )
 //            star = true;
 //    }
 //

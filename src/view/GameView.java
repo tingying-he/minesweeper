@@ -91,13 +91,13 @@ public class GameView extends BorderPane {
         //tutorial
         tutorialImgView.setLayoutX(0);
         tutorialImgView.setLayoutY(40);
-        tutorialImgView.setFitWidth(428*0.85);
+        tutorialImgView.setFitWidth(515*0.85);
         tutorialImgView.setFitHeight(60*0.85);
 
         titlePane.getChildren().addAll(titleLabel,tutorialImgView);
 
         //gridPane(minefield)
-        gridPane.setPadding(new Insets(10,0,0,0));
+        gridPane.setPadding(new Insets(15,0,0,0));
 
 
         //statusPane
