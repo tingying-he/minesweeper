@@ -23,6 +23,7 @@ import java.util.Timer;
  */
 public class GameView extends BorderPane {
 
+    private GameController gameController;
 
     private VBox statusPane = new VBox();
     private VBox btnPane = new VBox();
@@ -56,62 +57,56 @@ public class GameView extends BorderPane {
     ImageView mineIconImgView = new ImageView(mineIconImg);
     public Label mineIntroLabel = new Label("Flagged/All Mines");
 
-    //tutorial status pane
+    //title pane
+    private AnchorPane titlePane = new AnchorPane();
+    private Label titleLabel = new Label("Minesweeper");
+    //tutorial
+    private Image tutorialImg = new Image("img/tutorial.png");
+    private ImageView tutorialImgView = new ImageView(tutorialImg);
 
-    //    AnchorPane tutorialPane = new AnchorPane();
-    Image tutorialImg = new Image("img/tutorial.png");
-    ImageView tutorialImgView = new ImageView(tutorialImg);
-
-    //Title
-    AnchorPane titlePane = new AnchorPane();
-    Label titleLabel = new Label("Minesweeper");
     //restart
     public Button restartBtn = new Button("New Game");
     public Button exitBtn = new Button("Exit");
 
 
-    GameController gameController;
+
 
     public GameView(GameController gameController){
         this.gameController = gameController;
+
+        //game pane
         this.setTop(titlePane);
         this.setCenter(gridPane);
         this.setRight(statusPane);
 
         this.setPadding(new Insets(20,30,20,30));
 
+        //TitlePane
+        titleLabel.setFont(new Font("Arial", 30) );
+        //tutorial
+        tutorialImgView.setLayoutX(0);
+        tutorialImgView.setLayoutY(40);
+        tutorialImgView.setFitWidth(428*0.85);
+        tutorialImgView.setFitHeight(60*0.85);
+
+        titlePane.getChildren().addAll(titleLabel,tutorialImgView);
+
+        //gridPane(minefield)
         gridPane.setPadding(new Insets(10,0,0,0));
 
 
+        //statusPane
         statusPane.getChildren().addAll(starPane,timePane,minePane,openedCellsPane,btnPane);
-//        statusPane.setAlignment(Pos.CENTER);
         statusPane.setSpacing(3);
-
-        btnPane.getChildren().addAll(restartBtn,exitBtn);
-        btnPane.setAlignment(Pos.CENTER);
-        btnPane.setSpacing(10);
-        btnPane.setPadding(new Insets(160,0,0,0));
-
-
-        restartBtn.setPrefSize(150,35);
-        restartBtn.setStyle("-fx-background-color:#508EAC");
-        restartBtn.setTextFill(Color.WHITE);
-
-        exitBtn.setPrefSize(150,35);
-        exitBtn.setStyle("-fx-background-color:#508EAC");
-        exitBtn.setTextFill(Color.WHITE);
-
-
-
 
         //starPane
         starIntroLabel.setLayoutX(80);
         starIntroLabel.setLayoutY(10);
-        //starPane text
+        //star pane text
         starNumberLabel.setFont(new Font("Arial", 30));
         starNumberLabel.setLayoutX(80);
         starNumberLabel.setLayoutY(30);
-        //starpane animation
+        //star pane animation
         starIconImgView.setFitHeight(50);
         starIconImgView.setFitWidth(50);
         starIconImgView.setX(10);
@@ -120,8 +115,6 @@ public class GameView extends BorderPane {
         starPane.getChildren().addAll(starIntroLabel,starNumberLabel,starIconImgView);
 
         //timePane
-//        timePane.setStyle("-fx-background-color: Red;");
-//        timePane.setPrefSize(32, 50);
         clockIntroLabel.setLayoutX(80);
         clockIntroLabel.setLayoutY(10);
         //timePane text
@@ -137,8 +130,6 @@ public class GameView extends BorderPane {
         timePane.getChildren().addAll(remainTimeLabel,clockIconImgView,clockIntroLabel);
 
         //openedCellsPane
-//        openedCellsPane.setStyle("-fx-background-color: LightBlue;");
-//        openedCellsPane.setPrefSize(32, 50);
         openedCellsIntroLabel.setLayoutX(80);
         openedCellsIntroLabel.setLayoutY(10);
         //openedCellsPane text
@@ -153,19 +144,15 @@ public class GameView extends BorderPane {
 
         openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumLabel,openedCellsIntroLabel);
 
-        //remain mines
-
 
         //minePane
-//        minePane.setStyle("-fx-background-color: LightGreen;");
-//        starPane.setPrefSize(32, 50);
         mineIntroLabel.setLayoutX(80);
         mineIntroLabel.setLayoutY(10);
         //minePane text
         remainMinesLabel.setFont(new Font("Arial", 30));
         remainMinesLabel.setLayoutX(80);
         remainMinesLabel.setLayoutY(30);
-        //minepane animation
+        //minePane animation
         mineIconImgView.setFitHeight(50);
         mineIconImgView.setFitWidth(50);
         mineIconImgView.setX(10);
@@ -173,17 +160,19 @@ public class GameView extends BorderPane {
 
         minePane.getChildren().addAll(mineIntroLabel,remainMinesLabel, mineIconImgView);
 
-        //title
-        titleLabel.setFont(new Font("Arial", 30) );
-
-        //tutorial
-        tutorialImgView.setLayoutX(0);
-        tutorialImgView.setLayoutY(40);
-        tutorialImgView.setFitWidth(428*0.85);
-        tutorialImgView.setFitHeight(60*0.85);
-
-
-        titlePane.getChildren().addAll(titleLabel,tutorialImgView);
+        //btnPane
+        btnPane.getChildren().addAll(restartBtn,exitBtn);
+        btnPane.setAlignment(Pos.CENTER);
+        btnPane.setSpacing(10);
+        btnPane.setPadding(new Insets(160,0,0,0));
+        //restart button
+        restartBtn.setPrefSize(150,35);
+        restartBtn.setStyle("-fx-background-color:#508EAC");
+        restartBtn.setTextFill(Color.WHITE);
+        //exit button
+        exitBtn.setPrefSize(150,35);
+        exitBtn.setStyle("-fx-background-color:#508EAC");
+        exitBtn.setTextFill(Color.WHITE);
     }
 
     public void init(int N, int M){
