@@ -33,6 +33,11 @@ public class GameModel {
     public int totalTime =60;
     public int remainTime = totalTime;
 
+    public int openedCellsNum = 0;
+    public int starNumber = 0;
+    public int minesTotalNumber = 0;
+    public int remainMines = 0;
+
     RotateTransition starRotateTransition;
 
     public GameModel(GameController gameController){
@@ -125,7 +130,7 @@ public class GameModel {
             }
             if (cellControllers[i][j].cellModel.isMine()) {
 //                System.out.println("Game Over");
-                loseGame(gameController.gameView.starNumber, spentTime,gameController.gameView.openedCellsNumber,"You clicked on a mine :(");
+                loseGame(starNumber, spentTime,openedCellsNum,"You clicked on a mine :(");
             }
 
             if (cellControllers[i][j].cellModel.isClock()) {
@@ -149,10 +154,10 @@ public class GameModel {
             cellControllers[i][j].cellModel.setFlag();
 
 
-            gameController.gameView.remainMines --;
-            gameController.gameView.remainMinesLabel.setText(gameController.gameView.remainMines+"/"+gameController.gameView.minesTotalNumber);
+            remainMines --;
+            gameController.gameView.remainMinesLabel.setText(remainMines+"/"+minesTotalNumber);
         }
-        checkWin(gameController.gameView.starNumber, spentTime);
+        checkWin(starNumber, spentTime);
         cellControllers[i][j].cellView.init(cellControllers[i][j]);
     }
 
@@ -160,8 +165,8 @@ public class GameModel {
     public void openCell(int i, int j) {
         cellControllers[i][j].cellModel.setOpen();
 //        System.out.println(cellControllers[i][j].cellModel.getNumbers());
-        gameController.gameView.openedCellsNumber ++;
-        gameController.gameView.openedCellsNumberLabel.setText(gameController.gameView.openedCellsNumber +"/"+ gameController.N*gameController.M);
+        openedCellsNum ++;
+        gameController.gameView.openedCellsNumLabel.setText(openedCellsNum +"/"+ gameController.N*gameController.M);
 
         if (cellControllers[i][j].cellModel.isStar()) {
 //                System.out.println("Star!");
@@ -175,8 +180,8 @@ public class GameModel {
                     cellControllers[i][j].cellModel.removeStar();
                     cellControllers[i][j].cellView.init(cellControllers[i][j]);
 
-                    gameController.gameView.starNumber++;
-                    gameController.gameView.starNumberLabel.setText(Integer.toString(gameController.gameView.starNumber));
+                    starNumber++;
+                    gameController.gameView.starNumberLabel.setText(Integer.toString(starNumber));
 
                 }
             });
@@ -224,7 +229,7 @@ public class GameModel {
                             @Override
                             public void run() {
                                 System.out.println("Time up");
-                                loseGame(gameController.gameView.starNumber, spentTime,gameController.gameView.openedCellsNumber,"Time is up!");
+                                loseGame(starNumber, spentTime,openedCellsNum,"Time is up!");
                             }
                         });
                     }

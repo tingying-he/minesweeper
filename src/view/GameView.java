@@ -28,39 +28,35 @@ public class GameView extends BorderPane {
     private VBox btnPane = new VBox();
     public GridPane gridPane = new GridPane();
 
-    //time
+    //remaining time status pane
     private AnchorPane timePane = new AnchorPane();
-    public Label remainTimeLabel = new Label();
+    public Label remainTimeLabel = new Label(); //show remain time
     private Image clockIconImg = new Image(CellModel.clockImgURL);
     public ImageView clockIconImgView = new ImageView(clockIconImg);
     public Label clockIntroLabel = new Label("Remaining Time");
 
-    //number of opened cells
-    AnchorPane openedCellsPane = new AnchorPane();
-    public int openedCellsNumber = 0;
-    public Label openedCellsNumberLabel = new Label();
-    Image openedCellsIconImg = new Image("img/1.png");
-    ImageView openedCellsImgView = new ImageView(openedCellsIconImg);
+    //number of opened cells status pane
+    private AnchorPane openedCellsPane = new AnchorPane();
+    public Label openedCellsNumLabel = new Label();
+    private Image openedCellsIconImg = new Image("img/1.png");
+    private ImageView openedCellsImgView = new ImageView(openedCellsIconImg);
     public Label openedCellsIntroLabel = new Label("Opened/All Cells");
 
-    //star
+    //star status pane
     AnchorPane starPane = new AnchorPane();
-    public int starNumber = 0;
     public Label starNumberLabel = new Label();
     Image starIconImg = new Image(CellModel.starImgURL);
     public ImageView starIconImgView = new ImageView(starIconImg);
     public Label starIntroLabel = new Label("Your Stars");
 
-    //remain mines
+    //remaining mines status pane
     AnchorPane minePane = new AnchorPane();
-    public int minesTotalNumber = 0;
-    public int remainMines = 0;
     public Label remainMinesLabel = new Label();
     Image mineIconImg = new Image(CellModel.flagImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
     public Label mineIntroLabel = new Label("Flagged/All Mines");
 
-    //tutorial
+    //tutorial status pane
 
     //    AnchorPane tutorialPane = new AnchorPane();
     Image tutorialImg = new Image("img/tutorial.png");
@@ -109,8 +105,6 @@ public class GameView extends BorderPane {
 
 
         //starPane
-//        starPane.setStyle("-fx-background-color: YELLOW;");
-//        starPane.setPrefSize(32, 50);
         starIntroLabel.setLayoutX(80);
         starIntroLabel.setLayoutY(10);
         //starPane text
@@ -148,16 +142,16 @@ public class GameView extends BorderPane {
         openedCellsIntroLabel.setLayoutX(80);
         openedCellsIntroLabel.setLayoutY(10);
         //openedCellsPane text
-        openedCellsNumberLabel.setFont(new Font("Arial", 30));
-        openedCellsNumberLabel.setLayoutX(80);
-        openedCellsNumberLabel.setLayoutY(30);
+        openedCellsNumLabel.setFont(new Font("Arial", 30));
+        openedCellsNumLabel.setLayoutX(80);
+        openedCellsNumLabel.setLayoutY(30);
 //        openedCellsPane animation
         openedCellsImgView.setFitHeight(50);
         openedCellsImgView.setFitWidth(50);
         openedCellsImgView.setX(10);
         openedCellsImgView.setY(10);
 
-        openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumberLabel,openedCellsIntroLabel);
+        openedCellsPane.getChildren().addAll(openedCellsImgView,openedCellsNumLabel,openedCellsIntroLabel);
 
         //remain mines
 
@@ -199,13 +193,13 @@ public class GameView extends BorderPane {
         gameController.gameModel.remainTime = gameController.gameModel.totalTime;
 //        gameController.gameModel.setTimer();
 
-        starNumber = 0;
+        gameController.gameModel.starNumber = 0;
 
-        starNumberLabel.setText(Integer.toString(starNumber));
+        starNumberLabel.setText(Integer.toString(gameController.gameModel.starNumber));
 
-        openedCellsNumber = 0;
+        gameController.gameModel.openedCellsNum = 0;
 
-        openedCellsNumberLabel.setText( openedCellsNumber +"/"+ N*M);
+        openedCellsNumLabel.setText( gameController.gameModel.openedCellsNum +"/"+ N*M);
 
 
         createCellsGrid();
@@ -214,16 +208,16 @@ public class GameView extends BorderPane {
         gameController.gameModel.putClocks(gameController.gameModel.clockRate);
         gameController.gameModel.addEventHandler();
 
-        minesTotalNumber = 0;
+        gameController.gameModel.minesTotalNumber = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
                 if (gameController.gameModel.cellControllers[i][j].cellModel.isMine()) {
-                    minesTotalNumber++;
+                    gameController.gameModel.minesTotalNumber++;
                 }
             }
         }
-        remainMines = minesTotalNumber;
-        remainMinesLabel.setText(remainMines+"/"+minesTotalNumber);
+        gameController.gameModel.remainMines = gameController.gameModel.minesTotalNumber;
+        remainMinesLabel.setText(gameController.gameModel.remainMines+"/"+gameController.gameModel.minesTotalNumber);
     }
     private void createCellsGrid() {
         for (int i = 0; i < gameController.N; i++)
