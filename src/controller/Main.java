@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+//Reference(for basic minesweeper function): https://www.youtube.com/watch?v=JwcyxuKko_M
 public class Main extends Application {
     private int N = 16;
     private int M = 16;
@@ -15,7 +15,7 @@ public class Main extends Application {
         GameController gameController = new GameController(N,M);
 
         primaryStage.setTitle("Minesweeper_Tingying He");
-        primaryStage.setScene(new Scene(gameController.gameView, 800, 700));
+        primaryStage.setScene(new Scene(gameController.gameView, 800, 680));
         primaryStage.show();
 
         //stop application on window close

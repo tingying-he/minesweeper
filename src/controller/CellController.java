@@ -24,7 +24,6 @@ public class CellController{
 
     public void init() {
 
-
         if (cellModel.isOpen()) {
             if (cellModel.isMine()) {
                 cellView.getChildren().add(drawImg(

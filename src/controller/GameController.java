@@ -3,8 +3,13 @@ package controller;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.GameModel;
 import view.GameView;
@@ -20,18 +25,18 @@ public class GameController {
     public GameView gameView = new GameView(this);
     public GameModel gameModel = new GameModel(this);
 
-    public GameController(int N, int M){
+    public GameController(int N, int M) {
         this.N = N;
         this.M = M;
 
         setTimer();
-        init(N,M);
+        init(N, M);
 
         //addEventHandler to buttons on gameView
-        gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
-            init(N,M);//restart
+        gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            init(N, M);//restart
         });
-        gameView.exitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
+        gameView.exitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             Platform.exit();
             System.exit(0);
         });
@@ -120,7 +125,7 @@ public class GameController {
 
     //Flood-fill
     public void openCell(int i, int j) {
-        gameModel.cellControllers[i][j].cellModel.setOpen();
+        gameModel.cellControllers[i][j].cellModel.setOpen(true);
         gameModel.openedCellsNum ++;
         gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
 
@@ -173,6 +178,12 @@ public class GameController {
                     });
                     gameModel.spentTime++;
                     gameModel.remainTime--;
+                    if(gameModel.remainTime < 20){
+                        gameView.remainTimeLabel.setTextFill(Color.RED);
+
+                    }else{
+                        gameView.remainTimeLabel.setTextFill(Color.BLACK);
+                    }
                     if (gameModel.remainTime == 0) {
                         Platform.runLater(new Runnable() {
                             @Override

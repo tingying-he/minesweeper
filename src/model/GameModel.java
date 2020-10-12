@@ -124,13 +124,14 @@ public class GameModel {
 
 
     public void loseGame(int starNum, int spentTime,int openedCellsNumber, String whyLoseGame) {
-        openAll();
+
         timer.cancel();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
         alert.setTitle("GAME OVER");
         alert.setHeaderText("☆ Your Star(s): "+ starNum +" ☆");
-        alert.setContentText(whyLoseGame+"\n\nTime spent in game: "+ spentTime + "s \nNumber of cells opened: "+openedCellsNumber);
+        alert.setContentText(whyLoseGame+"\n\nTime spent in game: "+ spentTime + "s \nNumber of cells you opened: "+openedCellsNumber);
+        openAll();
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 gameController.setTimer();
@@ -177,7 +178,7 @@ public class GameModel {
     public void openAll() {
         for (int i = 0; i < gameController.N; i++)
             for (int j = 0; j < gameController.M; j++) {
-                cellControllers[i][j].cellModel.setOpen();
+                cellControllers[i][j].cellModel.setOpen(true);
                 cellControllers[i][j].init();
             }
     }

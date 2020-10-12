@@ -79,8 +79,8 @@ public class CellModel {
 //            clock = true;
 //    }
 
-    public void setOpen(){
-        open = true;
+    public void setOpen(boolean open){
+        this.open =open;
     }
     public void setFlag(){
         flag = !flag;

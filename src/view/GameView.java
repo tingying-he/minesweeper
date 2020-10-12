@@ -47,14 +47,14 @@ public class GameView extends BorderPane {
     public Label openedCellsIntroLabel = new Label("Opened/All Cells");
 
     //star status pane
-    AnchorPane starPane = new AnchorPane();
+    private AnchorPane starPane = new AnchorPane();
     public Label starNumberLabel = new Label();
     Image starIconImg = new Image(CellModel.starImgURL);
     public ImageView starIconImgView = new ImageView(starIconImg);
     public Label starIntroLabel = new Label("Your Stars");
 
     //remaining mines status pane
-    AnchorPane minePane = new AnchorPane();
+    private AnchorPane minePane = new AnchorPane();
     public Label remainMinesLabel = new Label();
     Image mineIconImg = new Image(CellModel.flagImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
@@ -68,6 +68,7 @@ public class GameView extends BorderPane {
     private ImageView tutorialImgView = new ImageView(tutorialImg);
 
     //restart
+//    public Button customizeBtn = new Button("Customize Game");
     public Button restartBtn = new Button("New Game");
     public Button exitBtn = new Button("Exit");
 
@@ -176,6 +177,10 @@ public class GameView extends BorderPane {
         btnPane.setAlignment(Pos.CENTER);
         btnPane.setSpacing(10);
         btnPane.setPadding(new Insets(160,0,0,0));
+        //customize Button
+//        customizeBtn.setPrefSize(150,35);
+//        customizeBtn.setStyle("-fx-background-color:#508EAC");
+//        customizeBtn.setTextFill(Color.WHITE);
         //restart button
         restartBtn.setPrefSize(150,35);
         restartBtn.setStyle("-fx-background-color:#508EAC");
