@@ -35,8 +35,8 @@ public class GameModel {
     public int remainTime = totalTime;
 
     public int openedCellsNum = 0;
-    public int starNumber = 0;
-    public int minesTotalNumber = 0;
+    public int starNum = 0;
+    public int minesTotalNum = 0;
     public int remainMines = 0;
 //    public int flaggedMines = 0;
 
@@ -50,22 +50,22 @@ public class GameModel {
 
     public void init(){
         remainTime = totalTime;
-        starNumber = 0;
+        starNum = 0;
         openedCellsNum = 0;
 
         putNeighborMinesNum();
         putStars(starRate);
         putClocks(clockRate);
         gameController.addEventHandler();
-        minesTotalNumber = 0;
+        minesTotalNum = 0;
         for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
                 if (cellControllers[i][j].cellModel.isMine()) {
-                    minesTotalNumber++;
+                    minesTotalNum++;
                 }
             }
         }
-        remainMines = minesTotalNumber;
+        remainMines = minesTotalNum;
 
     }
 
@@ -147,7 +147,7 @@ public class GameModel {
     }
 
     public void checkWin(int starNum,int spentTime) {
-        if (winGame()) {
+        if (winGame(starNum)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
             alert.setTitle("YOU WIN!");
@@ -163,8 +163,8 @@ public class GameModel {
         }
     }
 
-    public boolean winGame() {
-        for (int i = 0; i < gameController.N; i++)
+    public boolean winGame(int starNum) {
+        for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
                 if (cellControllers[i][j].cellModel.isMine()) {
                     if (!cellControllers[i][j].cellModel.isFlag()) {
@@ -174,7 +174,12 @@ public class GameModel {
                     if (!cellControllers[i][j].cellModel.isOpen()) {
                         return false;
                     }
-                }}
+                }
+            }
+        }
+        if(starNum < 5 ){
+            return false;
+        }
         return true;
     }
 

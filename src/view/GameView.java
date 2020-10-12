@@ -58,7 +58,7 @@ public class GameView extends BorderPane {
     public Label remainMinesLabel = new Label();
     Image mineIconImg = new Image(CellModel.mineImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
-    public Label mineIntroLabel = new Label("Flagged/All Mines");
+    public Label mineIntroLabel = new Label("Unflagged/All Mines");
 
     //title pane
     private AnchorPane titlePane = new AnchorPane();
@@ -91,8 +91,8 @@ public class GameView extends BorderPane {
         //tutorial
         tutorialImgView.setLayoutX(0);
         tutorialImgView.setLayoutY(40);
-        tutorialImgView.setFitWidth(515*0.85);
-        tutorialImgView.setFitHeight(60*0.85);
+        tutorialImgView.setFitWidth(640*0.85);
+        tutorialImgView.setFitHeight(65*0.85);
 
         titlePane.getChildren().addAll(titleLabel,tutorialImgView);
 
@@ -111,6 +111,7 @@ public class GameView extends BorderPane {
         starNumberLabel.setFont(new Font("Arial", 30));
         starNumberLabel.setLayoutX(80);
         starNumberLabel.setLayoutY(30);
+        starNumberLabel.setTextFill(Color.RED);
         //star pane animation
         starIconImgView.setFitHeight(50);
         starIconImgView.setFitWidth(50);

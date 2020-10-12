@@ -50,9 +50,9 @@ public class GameController {
         gameModel.cellControllers = new CellController[N][M];
         createCellsGrid();
         gameModel.init();
-        gameView.starNumberLabel.setText(Integer.toString(gameModel.starNumber));
+        gameView.starNumberLabel.setText(Integer.toString(gameModel.starNum));
         gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
-        gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNumber);
+        gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNum);
     }
 
     private void createCellsGrid() {
@@ -94,7 +94,7 @@ public class GameController {
             }
             if (gameModel.cellControllers[i][j].cellModel.isMine()) {
                 gameModel.loseGame(
-                        gameModel.starNumber,
+                        gameModel.starNum,
                         gameModel.spentTime,
                         gameModel.openedCellsNum,
                         "You clicked on a mine :(");
@@ -125,10 +125,10 @@ public class GameController {
             }
             gameModel.cellControllers[i][j].cellModel.setFlag();
 
-            gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNumber);
+            gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNum);
             gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
         }
-        gameModel.checkWin(gameModel.starNumber, gameModel.spentTime);
+        gameModel.checkWin(gameModel.starNum, gameModel.spentTime);
         gameModel.cellControllers[i][j].init();
     }
 
@@ -146,8 +146,11 @@ public class GameController {
                     gameModel.cellControllers[i][j].cellModel.removeStar();
                     gameModel.cellControllers[i][j].init();
 
-                    gameModel.starNumber++;
-                    gameView.starNumberLabel.setText(Integer.toString(gameModel.starNumber));
+                    gameModel.starNum++;
+                    if(!(gameModel.starNum <5)){
+                        gameView.starNumberLabel.setTextFill(Color.BLACK);
+                    }
+                    gameView.starNumberLabel.setText(Integer.toString(gameModel.starNum));
 
                 }
             });
@@ -190,7 +193,7 @@ public class GameController {
 
 
 
-                    if(gameModel.remainTime < 20){
+                    if(gameModel.remainTime < 30){
 
                         gameView.remainTimeLabel.setTextFill(Color.RED);
                         for (int i = 0; i < N; i++)
@@ -211,9 +214,9 @@ public class GameController {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("Time up");
+//                                System.out.println("Time up");
                                 gameModel.loseGame(
-                                        gameModel.starNumber,
+                                        gameModel.starNum,
                                         gameModel.spentTime,
                                         gameModel.openedCellsNum,
                                         "Time is up!");
@@ -226,6 +229,5 @@ public class GameController {
             e.printStackTrace();
         }
     }
-    //Reference:https://stackoverflow.com/questions/34882640/java-count-down-timer-using-javafx
 
 }

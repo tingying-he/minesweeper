@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-//Reference(for basic minesweeper function): https://www.youtube.com/watch?v=JwcyxuKko_M
 public class Main extends Application {
     private int N = 16;
     private int M = 16;
@@ -29,6 +28,5 @@ public class Main extends Application {
         launch(args);
     }
 }
-
 
 
