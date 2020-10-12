@@ -175,44 +175,4 @@ public class GameView extends BorderPane {
         exitBtn.setTextFill(Color.WHITE);
     }
 
-//    public void init(int N, int M){
-//        gameController.gameModel.cellControllers = new CellController[N][M];
-//
-////        timer.cancel();
-//        gameController.gameModel.remainTime = gameController.gameModel.totalTime;
-////        gameController.gameModel.setTimer();
-//
-//        gameController.gameModel.starNumber = 0;
-//
-//        starNumberLabel.setText(Integer.toString(gameController.gameModel.starNumber));
-//
-//        gameController.gameModel.openedCellsNum = 0;
-//
-//        openedCellsNumLabel.setText( gameController.gameModel.openedCellsNum +"/"+ N*M);
-//
-//
-//        createCellsGrid();
-//        gameController.gameModel.putNeighborMinesNum();
-//        gameController.gameModel.putStars(gameController.gameModel.starRate);
-//        gameController.gameModel.putClocks(gameController.gameModel.clockRate);
-//        gameController.gameModel.addEventHandler();
-//
-//        gameController.gameModel.minesTotalNumber = 0;
-//        for (int i = 0; i < N; i++) {
-//            for (int j = 0; j < M; j++) {
-//                if (gameController.gameModel.cellControllers[i][j].cellModel.isMine()) {
-//                    gameController.gameModel.minesTotalNumber++;
-//                }
-//            }
-//        }
-//        gameController.gameModel.remainMines = gameController.gameModel.minesTotalNumber;
-//        remainMinesLabel.setText(gameController.gameModel.remainMines+"/"+gameController.gameModel.minesTotalNumber);
-//    }
-//    private void createCellsGrid() {
-//        for (int i = 0; i < gameController.N; i++)
-//            for (int j = 0; j < gameController.M; j++) {
-//                gameController.gameModel.cellControllers[i][j] = new CellController();
-//                gameController.gameView.gridPane.add(gameController.gameModel.cellControllers[i][j].cellView, i, j, 1, 1);
-//            }
-//    }
 }

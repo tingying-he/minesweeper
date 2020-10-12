@@ -21,9 +21,7 @@ public class GameController {
 
         gameModel.setTimer();
         init(N,M);
-
-
-        //addEventHandler to buttons on gamePane
+        
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             gameModel.restart();
         });
@@ -34,35 +32,15 @@ public class GameController {
     }
 
     public void init(int N, int M){
+
         gameModel.cellControllers = new CellController[N][M];
-
-        gameModel.remainTime = gameModel.totalTime;
-        gameModel.starNumber = 0;
-
-        gameView.starNumberLabel.setText(Integer.toString(gameModel.starNumber));
-
-        gameModel.openedCellsNum = 0;
-
-        gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
-
-
         createCellsGrid();
-        gameModel.putNeighborMinesNum();
-        gameModel.putStars(gameModel.starRate);
-        gameModel.putClocks(gameModel.clockRate);
-        gameModel.addEventHandler();
-
-        gameModel.minesTotalNumber = 0;
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (gameModel.cellControllers[i][j].cellModel.isMine()) {
-                    gameModel.minesTotalNumber++;
-                }
-            }
-        }
-        gameModel.remainMines = gameModel.minesTotalNumber;
+        gameModel.init();
+        gameView.starNumberLabel.setText(Integer.toString(gameModel.starNumber));
+        gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
         gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNumber);
     }
+
     private void createCellsGrid() {
         for (int i = 0; i < N; i++)
             for (int j = 0; j < M; j++) {

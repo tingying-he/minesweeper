@@ -51,9 +51,25 @@ public class GameModel {
     }
 
     public void init(){
+        remainTime = totalTime;
+        starNumber = 0;
+        openedCellsNum = 0;
+
+        putNeighborMinesNum();
+        putStars(starRate);
+        putClocks(clockRate);
+        addEventHandler();
+        minesTotalNumber = 0;
+        for (int i = 0; i < gameController.N; i++) {
+            for (int j = 0; j < gameController.M; j++) {
+                if (cellControllers[i][j].cellModel.isMine()) {
+                    minesTotalNumber++;
+                }
+            }
+        }
+        remainMines = minesTotalNumber;
 
     }
-
     public void putNeighborMinesNum() {
 
         for (int i = 0; i < gameController.N; i++) {
