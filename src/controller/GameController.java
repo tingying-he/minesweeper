@@ -21,7 +21,8 @@ public class GameController {
 
         gameModel.setTimer();
         init(N,M);
-        
+
+        //addEventHandler to buttons on gameView
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             gameModel.restart();
         });

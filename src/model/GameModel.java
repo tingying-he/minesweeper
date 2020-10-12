@@ -28,6 +28,7 @@ public class GameModel {
     public double starRate = 0.1;
     public double clockRate = 0.1;
 
+    //timer
     public Timer timer;
     public int spentTime = 0;
     public int totalTime =60;
@@ -43,6 +44,7 @@ public class GameModel {
     public GameModel(GameController gameController){
         this.gameController = gameController;
 
+        //rotate animation for star on statusPane
         starRotateTransition = new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
         starRotateTransition.setFromAngle(-30);
         starRotateTransition.setToAngle(30);
@@ -70,6 +72,8 @@ public class GameModel {
         remainMines = minesTotalNumber;
 
     }
+
+    //calculate neighboring mines number for each cell
     public void putNeighborMinesNum() {
 
         for (int i = 0; i < gameController.N; i++) {
@@ -92,6 +96,7 @@ public class GameModel {
         }
     }
 
+    //put stars into minefield grid. Stars are only on cells whose don't have neighboring mine
     public void putStars(double starRate){
         for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
@@ -106,6 +111,7 @@ public class GameModel {
         }
     }
 
+    //put clocks into minefield grid. Stars are only on cells whose don't have neighboring mine
     public void putClocks(double clockRate){
         for (int i = 0; i < gameController.N; i++) {
             for (int j = 0; j < gameController.M; j++) {
@@ -143,6 +149,7 @@ public class GameModel {
         }
     }
 
+    //If a cell is clicked, the model will be updated
     public void updateModel(int i, int j, boolean left) {
         if (left) {
             if(!cellControllers[i][j].cellModel.isOpen()) {
@@ -154,9 +161,7 @@ public class GameModel {
             }
 
             if (cellControllers[i][j].cellModel.isClock()) {
-//                gameController.gameView.timer.cancel();
                 gameController.gameModel.remainTime = gameController.gameModel.remainTime + 10;
-//                setTimer();
                 cellControllers[i][j].cellModel.removeClock();
 
                 ScaleTransition clockScaleTransition = new ScaleTransition(Duration.millis(300), gameController.gameView.clockIconImgView);
