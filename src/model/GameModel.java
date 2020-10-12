@@ -50,6 +50,10 @@ public class GameModel {
         starRotateTransition.setAutoReverse(true);
     }
 
+    public void init(){
+
+    }
+
     public void putNeighborMinesNum() {
 
         for (int i = 0; i < gameController.N; i++) {
@@ -292,7 +296,7 @@ public class GameModel {
     }
 
     public void restart(){
-        gameController.gameView.init(gameController.N,gameController.M);
+        gameController.init(gameController.N,gameController.M);
     }
 
     public boolean isInMinefield(int i, int j){
