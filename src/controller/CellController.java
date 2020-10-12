@@ -21,7 +21,7 @@ public class CellController{
         init();
     }
 
-
+    ImageView clockImgView;
     public void init() {
 
         if (cellModel.isOpen()) {
@@ -49,7 +49,7 @@ public class CellController{
                 }
 
             } else if (cellModel.isClock()) {
-                ImageView clockImgView;
+
                 clockImgView = drawImg(
                         cellModel.cellSide,
                         cellModel.cellSide,

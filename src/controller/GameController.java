@@ -1,6 +1,8 @@
 package controller;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -111,6 +113,7 @@ public class GameController {
                 clockScaleTransition.play();
 
 
+
             }
         } else {
             if(gameModel.cellControllers[i][j].cellModel.isFlag()){
@@ -184,11 +187,25 @@ public class GameController {
                     });
                     gameModel.spentTime++;
                     gameModel.remainTime--;
+
+
+
                     if(gameModel.remainTime < 20){
+
                         gameView.remainTimeLabel.setTextFill(Color.RED);
+                        for (int i = 0; i < N; i++)
+                            for (int j = 0; j < M; j++){
+                                FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), gameModel.cellControllers[i][j].clockImgView);
+                                fadeTransition.setFromValue(0.3);
+                                fadeTransition.setToValue(1);
+//                                fadeTransition.setAutoReverse(true);
+                                fadeTransition.play();
+                            }
+
 
                     }else{
                         gameView.remainTimeLabel.setTextFill(Color.BLACK);
+//                        fadeTransition.stop();
                     }
                     if (gameModel.remainTime == 0) {
                         Platform.runLater(new Runnable() {

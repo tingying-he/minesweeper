@@ -1,6 +1,7 @@
 package model;
 
 import controller.CellController;
+import javafx.animation.ScaleTransition;
 
 /**
  * Created by Tingying He on 2020/10/7.
@@ -30,6 +31,7 @@ public class CellModel {
 
     public int cellSide = 32;
     private double mineRate = 0.12;
+//    public ScaleTransition clockScaleTransition;
 
 
 

@@ -41,6 +41,7 @@ public class GameModel {
 //    public int flaggedMines = 0;
 
 
+
     public GameModel(GameController gameController){
         this.gameController = gameController;
 
