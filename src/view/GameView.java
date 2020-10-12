@@ -56,7 +56,7 @@ public class GameView extends BorderPane {
     //remaining mines status pane
     private AnchorPane minePane = new AnchorPane();
     public Label remainMinesLabel = new Label();
-    Image mineIconImg = new Image(CellModel.flagImgURL);
+    Image mineIconImg = new Image(CellModel.mineImgURL);
     ImageView mineIconImgView = new ImageView(mineIconImg);
     public Label mineIntroLabel = new Label("Flagged/All Mines");
 

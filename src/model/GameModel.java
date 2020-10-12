@@ -148,10 +148,17 @@ public class GameModel {
     public void checkWin(int starNum,int spentTime) {
         if (winGame()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
+            ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
             alert.setTitle("YOU WIN!");
             alert.setHeaderText("☆ Your Star(s): "+ starNum +" ☆");
-            alert.setContentText("Congrats!\nTime spent in game: "+ spentTime + "s");
-            alert.show();
+            alert.setContentText("Congrats!\n\nTime spent in game: "+ spentTime + "s");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    gameController.setTimer();
+
+                    gameController.init(gameController.N, gameController.M);//restart
+                }
+            });
         }
     }
 

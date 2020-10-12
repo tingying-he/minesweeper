@@ -115,12 +115,15 @@ public class GameController {
         } else {
             if(gameModel.cellControllers[i][j].cellModel.isFlag()){
                 gameModel.remainMines ++;
+                gameModel.openedCellsNum --;
             }else{
                 gameModel.remainMines --;
+                gameModel.openedCellsNum ++;
             }
             gameModel.cellControllers[i][j].cellModel.setFlag();
 
             gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNumber);
+            gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
         }
         gameModel.checkWin(gameModel.starNumber, gameModel.spentTime);
         gameModel.cellControllers[i][j].init();
