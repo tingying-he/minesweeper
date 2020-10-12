@@ -124,7 +124,7 @@ public class GameModel {
 
 
     public void loseGame(int starNum, int spentTime,int openedCellsNumber, String whyLoseGame) {
-        gameController.openAll();
+        openAll();
         timer.cancel();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Restart");
@@ -134,7 +134,7 @@ public class GameModel {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 gameController.setTimer();
-                restart();
+                gameController.init(gameController.N, gameController.M);//restart
             }
         });
 
@@ -165,15 +165,20 @@ public class GameModel {
         return true;
     }
 
-    public void restart(){
-        gameController.init(gameController.N,gameController.M);
-    }
-
     public boolean isInMinefield(int i, int j){
         if(i >= 0 && i < gameController.N && j >= 0 && j < gameController.M){
             return true;
         }else{
             return false;
         }
+    }
+
+    //open all cells
+    public void openAll() {
+        for (int i = 0; i < gameController.N; i++)
+            for (int j = 0; j < gameController.M; j++) {
+                cellControllers[i][j].cellModel.setOpen();
+                cellControllers[i][j].cellView.init(cellControllers[i][j]);
+            }
     }
 }

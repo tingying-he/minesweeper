@@ -29,7 +29,7 @@ public class GameController {
 
         //addEventHandler to buttons on gameView
         gameView.restartBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
-            gameModel.restart();
+            init(N,M);//restart
         });
         gameView.exitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             Platform.exit();
@@ -37,6 +37,7 @@ public class GameController {
         });
     }
 
+    //restart
     public void init(int N, int M){
 
         gameModel.cellControllers = new CellController[N][M];
@@ -140,8 +141,6 @@ public class GameController {
                 }
             });
 
-
-
             gameModel.cellControllers[i][j].cellView.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -199,12 +198,6 @@ public class GameController {
     }
     //Reference:https://stackoverflow.com/questions/34882640/java-count-down-timer-using-javafx
 
-    public void openAll() {
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < M; j++) {
-                gameModel.cellControllers[i][j].cellModel.setOpen();
-                gameModel.cellControllers[i][j].cellView.init(gameModel.cellControllers[i][j]);
-            }
-    }
+
 
 }
