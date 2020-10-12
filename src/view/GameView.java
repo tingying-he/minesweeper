@@ -2,6 +2,8 @@ package view;
 
 import controller.CellController;
 import controller.GameController;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.CellModel;
 
 import java.util.Timer;
@@ -70,6 +73,7 @@ public class GameView extends BorderPane {
 
 
 
+    public RotateTransition starRotateTransition;
 
     public GameView(GameController gameController){
         this.gameController = gameController;
@@ -113,6 +117,13 @@ public class GameView extends BorderPane {
         starIconImgView.setY(10);
 
         starPane.getChildren().addAll(starIntroLabel,starNumberLabel,starIconImgView);
+
+        //rotate animation for star on statusPane
+        starRotateTransition = new RotateTransition(Duration.millis(100), starIconImgView);
+        starRotateTransition.setFromAngle(-30);
+        starRotateTransition.setToAngle(30);
+        starRotateTransition.setCycleCount(Timeline.INDEFINITE);
+        starRotateTransition.setAutoReverse(true);
 
         //timePane
         clockIntroLabel.setLayoutX(80);

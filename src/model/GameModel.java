@@ -39,17 +39,12 @@ public class GameModel {
     public int minesTotalNumber = 0;
     public int remainMines = 0;
 
-    public RotateTransition starRotateTransition;
+
 
     public GameModel(GameController gameController){
         this.gameController = gameController;
 
-        //rotate animation for star on statusPane
-        starRotateTransition = new RotateTransition(Duration.millis(100), gameController.gameView.starIconImgView);
-        starRotateTransition.setFromAngle(-30);
-        starRotateTransition.setToAngle(30);
-        starRotateTransition.setCycleCount(Timeline.INDEFINITE);
-        starRotateTransition.setAutoReverse(true);
+
     }
 
     public void init(){

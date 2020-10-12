@@ -129,7 +129,7 @@ public class GameController {
             gameModel.cellControllers[i][j].cellView.setOnDragDetected(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
 //                    System.out.println("Drag detected");
-                    gameModel.starRotateTransition.play();
+                    gameView.starRotateTransition.play();
 
                     gameModel.cellControllers[i][j].cellModel.removeStar();
                     gameModel.cellControllers[i][j].cellView.init(gameModel.cellControllers[i][j]);
@@ -146,7 +146,7 @@ public class GameController {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
 //                    System.out.println("stop");
-                    gameModel.starRotateTransition.stop();
+                    gameView.starRotateTransition.stop();
                 }
             });
         }
