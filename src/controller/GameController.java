@@ -51,6 +51,7 @@ public class GameController {
         createCellsGrid();
         gameModel.init();
         gameView.starNumberLabel.setText(Integer.toString(gameModel.starNum));
+        gameView.starNumberLabel.setTextFill(Color.RED);
         gameView.openedCellsNumLabel.setText(gameModel.openedCellsNum +"/"+ N*M);
         gameView.remainMinesLabel.setText(gameModel.remainMines+"/"+gameModel.minesTotalNum);
     }
