@@ -1,6 +1,6 @@
 # Minesweeper
 <p>
-<img src="" alt="screenshot" width="800"/>
+<img src="https://github.com/tingying-he/minesweeper/blob/main/src/img/readme-screenshot.png" alt="screenshot" width="800"/>
 </p>
 
 Video: https://vimeo.com/user93477673
